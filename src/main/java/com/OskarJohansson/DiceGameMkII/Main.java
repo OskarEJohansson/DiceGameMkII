@@ -60,7 +60,6 @@ public class Main {
                     int throwDice = randomizer.nextInt(1, 7);
                     System.out.println(playerNames[i] + " rolls >>> " + throwDice + " <<< with dice >>> " + D + " <<<");
                     sum += throwDice;
-                    System.out.println(sum);
                     System.out.println("Press enter to roll again!");
                     sc.nextLine();
                 }
@@ -85,27 +84,58 @@ public class Main {
                     winnerScore = result[i];
                     winnerName = playerNames[i];
 
-                    // CREATE A DRAW FUNCTION
+                    // Look for a draw
+                    if (winnerScore == result[i]) {
+                        System.out.println(" >>> DRAW <<< between " + winnerName + " and " + playerNames[i]
+                                           + """
+                                                    ON TO SUDDEN DEATH
+                                                   1 dice
+                                                   1 roll
+                                                   1 winner!""");
 
+
+                        String playerOne = winnerName;
+                        String playerTwo = playerNames[i];
+                        boolean suddenDeath = true;
+
+                        // If we have a draw we go to sudden death
+                        while (suddenDeath) {
+                            int playerOneRoll = randomizer.nextInt(1, 7);
+                            System.out.println(playerOne + " rolls >>> " + playerOneRoll + "\n");
+
+                            int playerTwoRoll = randomizer.nextInt(1, 7);
+
+                            System.out.println(playerTwo + " rolls >>> " + playerTwoRoll + "\n");
+
+                            if (playerOneRoll > playerTwoRoll) {
+                                System.out.println("THE WINNER IS " + playerOne);
+                                suddenDeath = false;
+                            } else if (playerOneRoll < playerTwoRoll) {
+                                System.out.println("THE WINNER IS " + playerTwo);
+                                suddenDeath = false;
+                            } else System.out.println("ANOTHER DRAW, BACK TO SUDDEN DEATH!");
+
+                        }
+                    }
                 }
+
+                //Prints out the name and points of the winner
+                System.out.println("The winner of the round is " + winnerName + " with a total of " + winnerScore + "\n");
+
+
+                System.out.println("""
+                        Play another round?
+                        ENTER
+                        >>> Y/N <<<
+                        Y to Continue
+                        N to exit Program.
+                        """);
+
+                if (sc.nextLine().equalsIgnoreCase("y")) {
+                    continue;
+                } else isAppRunning = false;
+
             }
-
-            //Prints out the name and points of the winner
-            System.out.println("The winner of the round is " + winnerName + " with a total of " + winnerScore + "\n");
-
-            // Ask users
-            System.out.println("""
-                    Play another round?
-                    ENTER
-                    >>> Y/N <<<
-                    Y to Continue
-                    N to exit Program.
-                    """);
-
-            if (sc.nextLine().equalsIgnoreCase("y")) {
-                continue;
-            } else isAppRunning = false;
-
         } while (isAppRunning);
     }
 }
