@@ -18,6 +18,13 @@ public class Main {
         boolean isAppRunning = true;
         int numberOfPlayers = 0;
 
+        // For determining a winner
+        int winnerScore = 0;
+        String winnerName = "";
+
+        // Integer to show what player to name
+        int whatPlayer = 1;
+
 
         do {
 
@@ -27,9 +34,6 @@ public class Main {
 
             System.out.println("Set number of dies to use in game: ");
             dice.setValue(scanner.inputInt());
-
-            // Integer to show what player to name
-            int whatPlayer = 1;
 
             // This function names the players in the game and save them to an ArrayList<String>
             for (int i = 0; i < numberOfPlayers; i++) {
@@ -54,10 +58,10 @@ public class Main {
 
                 for (int D = 1; D <= dice.value; D++) {
                     int throwDice = randomizer.nextInt(1, 7);
-                    System.out.println("Player " + playerNames[i] + " rolls >>> " + throwDice + " <<< with dice >>> " + D + " <<<");
+                    System.out.println(playerNames[i] + " rolls >>> " + throwDice + " <<< with dice >>> " + D + " <<<");
                     sum += throwDice;
                     System.out.println(sum);
-                    System.out.println("Press enter to continue");
+                    System.out.println("Press enter to roll again!");
                     sc.nextLine();
                 }
 
@@ -67,19 +71,40 @@ public class Main {
 
             // Show results
             for (int j = 0; j < numberOfPlayers; j++) {
-                System.out.println("Player " + playerNames[j] + " rolled a total of " + result[j]);
+                System.out.println(playerNames[j] + " rolled a total of " + result[j] + "\n");
             }
 
-            int winner = 0;
+            System.out.println("Press enter to continue");
+            sc.nextLine();
+
+
             // Show the winner of the round
-            for (int i = 0; i < numberOfPlayers; i++) {
-                if (winner < result[i]){
-                    winner = result[i];
+            for (int i = 0; i < result.length; i++) {
+
+                if (winnerScore < result[i]) {
+                    winnerScore = result[i];
+                    winnerName = playerNames[i];
+
+                    // CREATE A DRAW FUNCTION
+
                 }
-
-
-
             }
+
+            //Prints out the name and points of the winner
+            System.out.println("The winner of the round is " + winnerName + " with a total of " + winnerScore + "\n");
+
+            // Ask users
+            System.out.println("""
+                    Play another round?
+                    ENTER
+                    >>> Y/N <<<
+                    Y to Continue
+                    N to exit Program.
+                    """);
+
+            if (sc.nextLine().equalsIgnoreCase("y")) {
+                continue;
+            } else isAppRunning = false;
 
         } while (isAppRunning);
     }
