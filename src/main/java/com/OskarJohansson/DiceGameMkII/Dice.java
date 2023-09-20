@@ -12,10 +12,16 @@ public class Dice {
     public int getValue() {
         return value;
     }
-
     // Set number of dies to use in game
     public void setValue(int value) {
-        System.out.println("Set number of dies to use in game: ");
         this.value = value;
+    }
+
+    public int getSides() {
+        return sides;
+    }
+
+    public void setSides(int sides) {
+        this.sides = sides;
     }
 }

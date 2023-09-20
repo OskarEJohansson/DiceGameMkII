@@ -1,0 +1,37 @@
+            // Look for a draw
+//                if (winnerScore == result[i]) {
+//                        System.out.println(" >>> DRAW <<< between " + winnerName + " and " + playerNames[i]
+//                                           + """
+//                                                    ON TO SUDDEN DEATH
+//                                                   1 dice
+//                                                   1 roll
+//                                                   1 winner!""");
+//
+//
+//                        String playerOne = winnerName;
+//                        String playerTwo = playerNames[i];
+//                        boolean suddenDeath = true;
+//
+//                        // If we have a draw we go to sudden death
+//                        while (suddenDeath) {
+//                            int playerOneRoll = randomizer.nextInt(1, 7);
+//                            System.out.println(playerOne + " rolls >>> " + playerOneRoll + "\n");
+//
+//                            int playerTwoRoll = randomizer.nextInt(1, 7);
+//
+//                            System.out.println(playerTwo + " rolls >>> " + playerTwoRoll + "\n");
+//
+//                            if (playerOneRoll > playerTwoRoll) {
+//                                System.out.println("THE WINNER IS " + playerOne);
+//                                suddenDeath = false;
+//                            } else if (playerOneRoll < playerTwoRoll) {
+//                                System.out.println("THE WINNER IS " + playerTwo);
+//                                suddenDeath = false;
+//                            } else System.out.println("ANOTHER DRAW, BACK TO SUDDEN DEATH!");
+//
+//                        }
+//                    }
+//                }
+//
+//                //Prints out the name and points of the winner
+//                System.out.println("The winner of the round is " + winnerName + " with a total of " + winnerScore + "\n");

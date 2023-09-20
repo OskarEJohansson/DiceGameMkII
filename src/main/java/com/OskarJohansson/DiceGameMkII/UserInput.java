@@ -16,7 +16,13 @@ public class UserInput {
         return sc.nextInt();
     }
 
-    public String inputString(){
-        return sc.nextLine();
-    }
+//    public String inputString(){
+//        String userInput = sc.nextLine();
+//        return userInput;
+//    }
+
+//    public void breakButton(){
+//
+//
+//    }
 }

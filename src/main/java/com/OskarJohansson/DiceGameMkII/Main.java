@@ -11,99 +11,93 @@ public class Main {
         Random randomizer = new Random();
         Player player = new Player();
         ArrayList<Player> playerList = new ArrayList();
-
+        Scanner sc = new Scanner(System.in);
 
         // Variables
         boolean isAppRunning = true;
 
-        // Start Game
-        do {
+        // Set number of players
+        int numberOfPlayers = player.setNumberOfPlayers();
 
-            int numberOfPlayers = player.setNumberOfPlayers();
+        // Name players
+        int whatPlayer = 1;
+        for (int i = 0; i < numberOfPlayers; i++) {
 
-            // Name players
-            for (int i = 0; i < numberOfPlayers; i++) {
-                player = player.createPlayer();
-                playerList.add(player);
-            }
+            System.out.println("Enter name of player " + whatPlayer);
+            player = player.createPlayer(sc.nextLine());
+            playerList.add(player);
+            whatPlayer++;
+        }
 
-            // Set number of die to play with
-            dice.setValue(scanner.inputInt());
+        for (int k = 0; k < playerList.size(); k++) {
 
-            // Play a round of dice!
-            for (int i = 0; i < numberOfPlayers; i++) {
+        }
 
-                // Reset the summarizer for each player
-                int sum = 0;
+        //Set number of die to play with
+        System.out.println("Set number of dies to use in game: ");
+        dice.setValue(scanner.inputInt());
 
-                for (int D = 1; D <= dice.value; D++) {
-                    int throwDice = randomizer.nextInt(1, 7);
-                    System.out.println(playerList.get(i) + " rolls >>> " + throwDice + " <<< with dice >>> " + D + " <<<");
-                    sum += throwDice;
-                    System.out.println("Press enter to roll again!");
-                    scanner.inputString();
+        //Set number of rounds
+        System.out.println("Set number of dies to use in game: ");
+        player.setRounds(scanner.inputInt());
+
+
+        // Play a round of dice!
+        // Let's start the game!
+
+        while (isAppRunning) {
+
+
+            for (int a = 0; a < player.getRounds(); a++) {
+
+                System.out.println(" Get ready for round >>> " + player.getRounds());
+
+                for (int i = 0; i < numberOfPlayers; i++) {
+
+                    // Reset the summarizer for each player
+                    int sum = 0;
+
+
+                    // Retrieve the player object
+                    Player getPlayer = playerList.get(i);
+                    // Retrieve the player name
+                    String playerName = getPlayer.getName(getPlayer);
+
+                    for (int D = 1; D <= dice.value; D++) {
+
+                        int throwDice = randomizer.nextInt(1, 7);
+
+                        System.out.println(playerName + " rolls >>> " + throwDice + " <<< with dice >>> " + D + " <<<");
+
+                        sum += throwDice;
+
+                        System.out.println("Press enter to continue");
+                        sc.nextLine();
+
+                    }
+
+                    getPlayer.setResult(sum);
                 }
-                Player roll = playerList.get(i);
-                roll.setResult(sum);
+                int winner = 0;
+                String winnerName = "";
+
+                //Show results
+                for (Player getPlayer : playerList) {
+                    // Iterate through all the players results
+                    String playerName = getPlayer.getName(getPlayer);
+                    int playerResult = getPlayer.getResult();
+                    System.out.println(playerName + " rolled a total of " + playerResult + "\n");
+
+
+                    // Look for a winner
+                    if (winner < playerResult) {
+                        winner = playerResult;
+                        winnerName = playerName;
+                    }
+
+                }
+                System.out.println("THE WINNER IS " + winnerName + "\n");
             }
-
-            // Show results
-
-            for (int i = 0; i < playerList.size(); i++) {
-                Player playerScore = playerList.get(i);
-                System.out.println(playerScore.getName() + " rolled a total of " + playerScore.getResult());
-            }
-
-            System.out.println("Press enter to continue");
-            scanner.inputString();
-
-            int[] score = new int[playerList.size()];
-            // Show the winner of the round
-            for (int i = 0; i < playerList.size(); i++) {
-                player = playerList.get(i);
-                score[i] = player.getResult();
-            }
-            System.out.println(Arrays.toString(score));
-
-
-            // Look for a draw
-//                if (winnerScore == result[i]) {
-//                        System.out.println(" >>> DRAW <<< between " + winnerName + " and " + playerNames[i]
-//                                           + """
-//                                                    ON TO SUDDEN DEATH
-//                                                   1 dice
-//                                                   1 roll
-//                                                   1 winner!""");
-//
-//
-//                        String playerOne = winnerName;
-//                        String playerTwo = playerNames[i];
-//                        boolean suddenDeath = true;
-//
-//                        // If we have a draw we go to sudden death
-//                        while (suddenDeath) {
-//                            int playerOneRoll = randomizer.nextInt(1, 7);
-//                            System.out.println(playerOne + " rolls >>> " + playerOneRoll + "\n");
-//
-//                            int playerTwoRoll = randomizer.nextInt(1, 7);
-//
-//                            System.out.println(playerTwo + " rolls >>> " + playerTwoRoll + "\n");
-//
-//                            if (playerOneRoll > playerTwoRoll) {
-//                                System.out.println("THE WINNER IS " + playerOne);
-//                                suddenDeath = false;
-//                            } else if (playerOneRoll < playerTwoRoll) {
-//                                System.out.println("THE WINNER IS " + playerTwo);
-//                                suddenDeath = false;
-//                            } else System.out.println("ANOTHER DRAW, BACK TO SUDDEN DEATH!");
-//
-//                        }
-//                    }
-//                }
-//
-//                //Prints out the name and points of the winner
-//                System.out.println("The winner of the round is " + winnerName + " with a total of " + winnerScore + "\n");
-
 
             System.out.println("""
                     Play another round?
@@ -113,10 +107,10 @@ public class Main {
                     N to exit Program.
                     """);
 
-            if (scanner.inputString().equalsIgnoreCase("y")) {
-                continue;
+            if (sc.nextLine().equalsIgnoreCase("y")) {
             } else isAppRunning = false;
 
-        } while (isAppRunning);
+        }
     }
 }
+

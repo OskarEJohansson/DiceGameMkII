@@ -1,21 +1,19 @@
 package com.OskarJohansson.DiceGameMkII;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Player {
 
     private String name;
     private int score = 0;
     private int players = 0;
+    private int rounds = 0;
+
+
     UserInput scanner = new UserInput();
 
-
     // Get Player Name
-    public String getName() {
+    public String getName(Player player) {
         return name;
     }
-
     // Set Player Name
     public void setName(String name) {
         this.name = name;
@@ -31,10 +29,17 @@ public class Player {
         this.score = result;
     }
 
-    public Player createPlayer() {
+    public int getRounds() {
+        return rounds;
+    }
+
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
+    }
+
+    public Player createPlayer(String name) {
         Player player = new Player();
-        System.out.println("Enter player name");
-        player.name = scanner.inputString();
+        player.name = name;
         return player;
     }
 
