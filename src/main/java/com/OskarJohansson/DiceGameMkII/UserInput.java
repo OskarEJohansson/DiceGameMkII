@@ -15,4 +15,8 @@ public class UserInput {
         }
         return sc.nextInt();
     }
+
+    public String inputString(){
+        return sc.nextLine();
+    }
 }

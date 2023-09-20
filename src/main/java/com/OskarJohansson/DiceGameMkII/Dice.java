@@ -15,6 +15,7 @@ public class Dice {
 
     // Set number of dies to use in game
     public void setValue(int value) {
+        System.out.println("Set number of dies to use in game: ");
         this.value = value;
     }
 }
