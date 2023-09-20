@@ -6,7 +6,6 @@ public class UserInput {
 
     Scanner sc = new Scanner(System.in);
 
-
     public int inputInt() {
 
         while (!sc.hasNextInt()) {
@@ -16,13 +15,4 @@ public class UserInput {
         return sc.nextInt();
     }
 
-//    public String inputString(){
-//        String userInput = sc.nextLine();
-//        return userInput;
-//    }
-
-//    public void breakButton(){
-//
-//
-//    }
 }

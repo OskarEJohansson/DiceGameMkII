@@ -14,6 +14,7 @@ public class Player {
     public String getName(Player player) {
         return name;
     }
+
     // Set Player Name
     public void setName(String name) {
         this.name = name;
@@ -33,8 +34,13 @@ public class Player {
         return rounds;
     }
 
-    public void setRounds(int rounds) {
-        this.rounds = rounds;
+    public void setRounds() {
+        int input = scanner.inputInt();
+        while (input > 10) {
+            System.out.println("Maximum number of rounds are 10! Try Again: ");
+            input = scanner.inputInt();
+        }
+        this.rounds = input;
     }
 
     public Player createPlayer(String name) {
@@ -44,8 +50,13 @@ public class Player {
     }
 
     public int setNumberOfPlayers() {
-        System.out.println("Set number of players: ");
-        this.players = scanner.inputInt() ;
+        int input = scanner.inputInt();
+        while (input > 10) {
+            System.out.println("Maximum number of players are 10! Try Again: ");
+            input = scanner.inputInt();
+        }
+        this.players = input;
+
         return players;
     }
 }
