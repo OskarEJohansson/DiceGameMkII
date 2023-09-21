@@ -34,6 +34,8 @@ public class GameFlow {
         texts.letsStartTheGame();
         for (int i = 1; i <= gameControl.numberOfRounds ; i++) {
 
+            gameControl.resetAll();
+
             texts.getReadyForRound(i);
 
             gameControl.playRound();
@@ -59,14 +61,15 @@ public class GameFlow {
 
                 texts.theWinnerIs(gameControl.winnerObject.getName(), gameControl.winnerObject.getScore());
                 gameControl.winnerObject.setRoundWin(1);
-                gameControl.resetScore();
-
             }
 
         }
+
         gameControl.findWinnerAllRounds();
+        texts.theWinnerOfAllRounds(gameControl.winnerAllRoundsObject.getName(), gameControl.winnerAllRoundsObject.getRoundWin());
 
         gameControl.resetRoundWin();
         texts.playAnotherRound();
+        gameControl.playAnotherRound();
     }
 }

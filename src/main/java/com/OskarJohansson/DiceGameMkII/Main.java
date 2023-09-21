@@ -8,7 +8,6 @@ public class Main {
 
         GameFlow app = new GameFlow();
         app.runApp();
-
     }
 }
 

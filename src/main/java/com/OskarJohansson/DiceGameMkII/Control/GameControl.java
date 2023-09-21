@@ -95,7 +95,8 @@ public class GameControl {
     public void findWinner() {
         for (Player player : this.playerList) {
 
-            if (player.getScore() > winnerScore ) {
+            if (player.getScore() > winnerScore) {
+                this.winnerScore = player.getScore();
                 this.winnerObject = player;
             }
         }
@@ -104,8 +105,8 @@ public class GameControl {
     public void showResults() {
         for (Player player : this.playerList) {
             // Iterate through all the players results
+            System.out.println(">>> Score <<<");
             System.out.println(player.getName() + ": " + player.getScore() + " points. \n");
-            breakButton();
         }
     }
 
@@ -121,15 +122,6 @@ public class GameControl {
         System.out.println(player.getName() + " rolls >>> " + player.getDrawScore());
     }
 
-
-    public void findDrawWinner() {
-        for (Player player : this.drawList) {
-
-            if (player.getDrawScore() > drawWinnerScore) {
-                this.drawWinnerObject = player;
-            }
-        }
-    }
 
     public void findDraw() {
         for (Player player : this.playerList) {
@@ -149,8 +141,6 @@ public class GameControl {
         }
     }
 
-
-
     public void findDrawInDraw() {
         for (Player player : this.drawList) {
             if (player.getDrawScore() == this.drawWinnerObject.getDrawScore() && !Objects.equals(player.getName(), this.drawWinnerObject.getName())) {
@@ -162,25 +152,61 @@ public class GameControl {
         this.isDraw = false;
     }
 
+    public void findDrawWinner() {
+        for (Player player : this.drawList) {
+
+            if (player.getDrawScore() > drawWinnerScore) {
+                this.drawWinnerScore = player.getDrawScore();
+                this.drawWinnerObject = player;
+            }
+        }
+    }
+
+    public void findWinnerAllRounds() {
+        for (Player player : playerList) {
+
+            if (player.getRoundWin() > winnerAllRounds) {
+                this.winnerAllRoundsObject = player;
+            }
+        }
+    }
+
+    public void resetScore() {
+        for (Player player : this.playerList) {
+            player.setScore(0);
+        }
+    }
+
+    public void resetWinnerObject() {
+        this.winnerObject = null;
+    }
+
+    public void resetDrawWinnerScore() {
+        for (Player player : this.playerList) {
+            player.setDrawScore(0);
+        }
+    }
+
+    public void resetDrawWinnerObject() {
+        this.drawWinnerObject = null;
+    }
+
     public void resetDrawInAllObjects() {
         for (Player player : this.drawList) {
             player.setDraw(false);
         }
     }
 
-    public void findWinnerAllRounds(){
-        for (Player player : playerList){
-
-            if(player.getRoundWin() > winnerAllRounds){
-                this.winnerAllRoundsObject = player;
-            }
-        }
+    public void resetDrawPlayerList(){
+        this.drawList = null;
     }
 
-    public void resetScore(){
-        for (Player player : this.playerList) {
-            player.setScore(0);
-        }
+    public void resetAll(){
+        resetScore();
+        resetWinnerObject();
+        resetDrawWinnerScore();
+        resetDrawWinnerObject();
+        resetDrawInAllObjects();
     }
 
     public void resetRoundWin() {
