@@ -38,4 +38,9 @@ public class Dice {
         }
         this.sides = sides;
     }
+
+    public int rollDice (){
+
+        return
+    }
 }
