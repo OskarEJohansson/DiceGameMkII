@@ -1,0 +1,89 @@
+ // Objects
+        UserInput scanner = new UserInput();
+        GameControl gameControl = new GameControl();
+        Dice dice = new Dice();
+        GameTexts texts = new GameTexts();
+
+        Player playerControllObject = new Player();
+
+        Scanner sc = new Scanner(System.in);
+
+        // Variables
+
+        int winner = 0;
+        String winnerName = "";
+        boolean draw = false;
+        int roundCounter = 1;
+
+
+        // A loop to keep the app running
+        while (isAppRunning) {
+
+
+
+
+            for (int roundsLoop = 0; roundsLoop < gameControl.getRounds(); roundsLoop++) {
+
+                texts.getReadyForRound(roundCounter);
+
+                for (int playerLoop = 0; playerLoop < numberOfPlayers; playerLoop++) {
+
+                    // Reset the summarizer for each player
+                    int sum = 0;
+
+                    // Retrieve the player object from GameControl / playerList
+                    Player getPlayer = gameControl.getPlayerInPlayerList(playerLoop);
+                    // Retrieve the player name
+                    String playerName = getPlayer.getName(getPlayer);
+
+
+                    getPlayer.setResult(sum);
+                }
+                    // Look for a winner
+                    if (winner < playerResult) {
+                        winner = playerResult;
+
+                    } else if (playerResult == winner) {
+                        draw = true;
+
+                        while (draw) {
+                            String drawPlayerOne = winnerName;
+                            String drawPlayerTwo = playerName;
+
+                            System.out.println(" >>> WE HAVE A DRAW BETWEEN! <<< \n" + drawPlayerOne + " AND " + drawPlayerTwo);
+
+                            System.out.println(">>> RULSES <<< \n >>> ONE T6-DICE  <<< \n >>> ONE ROLL <<< \n >>> ONE WINNER <<<");
+
+
+                            playerControllObject.setDrawScore(dice.throwDice());
+                            System.out.println(drawPlayerOne + " rolls >>> " + throwDice);
+                            throwDice = dice.throwDice();
+
+                            int drawPlayerTwoResult = throwDice;
+                            System.out.println(playerName + " rolls >>> " + throwDice + "\n");
+
+                            if (drawPlayerOneResult > drawPlayerTwoResult) {
+                                System.out.println(" THE WINNER IS " + drawPlayerOne + "\n");
+                                draw = false;
+                                break;
+                            } else if (drawPlayerOneResult < drawPlayerTwoResult) {
+                                System.out.println(" THE WINNER IS " + drawPlayerTwo + "\n");
+                                draw = false;
+                                break;
+                            } else System.out.println(" ANOTHER DRAW! \n");
+                        }
+
+                    }
+                    winnerName = playerName;
+                }
+
+                roundCounter++;
+            }
+
+            texts.playAnotherRound();
+
+            if (sc.nextLine().equalsIgnoreCase("y")) {
+            } else isAppRunning = false;
+
+        }
+    }
