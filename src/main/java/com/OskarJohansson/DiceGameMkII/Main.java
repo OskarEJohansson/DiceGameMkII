@@ -7,6 +7,7 @@ public class Main {
 
         // Objects
         UserInput scanner = new UserInput();
+        GameControll gameControll = new GameControll();
         Dice dice = new Dice();
         Random randomizer = new Random();
         Player player = new Player();
@@ -17,7 +18,7 @@ public class Main {
         boolean isAppRunning = true;
         int winner = 0;
         String winnerName = "";
-        int counter = 1;
+        int roundCounter = 1;
 
         System.out.println("""
                                     
@@ -35,15 +36,15 @@ public class Main {
 
         // Set number of players
         System.out.println("Set number of players to play : ");
-        int numberOfPlayers = player.setNumberOfPlayers();
+        int numberOfPlayers = gameControll.setNumberOfPlayers();
 
         // Name players
         for (int i = 0; i < numberOfPlayers; i++) {
 
-            System.out.println("Enter name of player " + counter);
+            System.out.println("Enter name of player " + roundCounter);
             player = player.createPlayer(sc.nextLine());
             playerList.add(player);
-            counter++;
+            roundCounter++;
 
         }
         //Set number of die to play with
@@ -52,39 +53,43 @@ public class Main {
 
         //Set number of rounds
         System.out.println("Set number of rounds to play: ");
-        player.setRounds();
+        gameControll.setRounds();
 
         // A loop to keep the app running
         while (isAppRunning) {
 
-            counter = 1;
+            roundCounter = 1;
             // A function to keep track of rounds
-            for (int a = 0; a < player.getRounds(); a++) {
+            for (int roundsLoop = 0; roundsLoop < gameControll.getRounds(); roundsLoop++) {
 
-                System.out.println("Let's start the game! \n Get ready for round >>> " + counter + " <<<");
+                System.out.println("Let's start the game! \n" +
+                                   "Get ready for round >>> " +
+                                   roundCounter +
+                                   " <<<");
 
-                for (int i = 0; i < numberOfPlayers; i++) {
+                for (int playerLoop = 0; playerLoop < numberOfPlayers; playerLoop++) {
 
                     // Reset the summarizer for each player
                     int sum = 0;
-
                     // Retrieve the player object
-                    Player getPlayer = playerList.get(i);
+                    Player getPlayer = playerList.get(playerLoop);
                     // Retrieve the player name
                     String playerName = getPlayer.getName(getPlayer);
 
-                    for (int D = 1; D <= dice.value; D++) {
+                    // A loop to throw a die and save the result.
+                    int diceCounter = 1;
+                    for (int diceLoop = 0; diceLoop < dice.value; diceLoop++) {
 
                         int throwDice = randomizer.nextInt(1, 7);
 
-                        System.out.println(playerName + " rolls >>> " + throwDice + " <<< with dice >>> " + D + " <<<");
+                        System.out.println(playerName + " rolls >>> " + throwDice + " <<< with dice >>> " + diceCounter + " <<<");
                         sum += throwDice;
 
                         // Break Button
                         System.out.println("Press enter to continue");
                         sc.nextLine();
+                        diceCounter++;
                     }
-
                     getPlayer.setResult(sum);
                 }
 
@@ -100,12 +105,11 @@ public class Main {
                         winner = playerResult;
                         winnerName = playerName;
 
-                        // WRITE A DRAW FUNCTION
                     }
                 }
 
                 System.out.println("THE WINNER IS " + winnerName + "\n");
-                counter++;
+                roundCounter++;
             }
 
             System.out.println("""
@@ -113,7 +117,7 @@ public class Main {
                     ENTER
                     >>> Y/N <<<
                     Y to Continue
-                    N to exit Program.
+                    N to exit the application.
                     """);
 
             if (sc.nextLine().equalsIgnoreCase("y")) {
