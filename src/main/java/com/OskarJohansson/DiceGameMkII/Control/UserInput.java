@@ -6,22 +6,31 @@ public class UserInput {
 
     Scanner sc = new Scanner(System.in);
 
-    public int inputInt() {
 
-        while (!sc.hasNextInt()) {
-            System.out.println("That's not a number!");
-            sc.next();
+    public int inputInt() {
+        while (true) {
+            String userInput = sc.next();
+            try {
+                int intValue = Integer.parseInt(userInput);
+                return intValue;
+            } catch (NumberFormatException e) {
+                System.out.println("That's not a number!");
+            }
         }
-        return sc.nextInt();
     }
 
     public boolean maxNumberOfInput(int input, String noun, int maxNumber) {
-            boolean maxNumberReached = false;
-        if (input > maxNumber) {
-            System.out.println("Maximum number of " + noun + " are " + maxNumber + ". Try Again! ");
+        boolean maxNumberReached = false;
+        try {
+            if (input > maxNumber) {
+                throw new IllegalArgumentException("Maximum number of " + noun + " are " + maxNumber + ". Try Again! ");
+
+            }
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
             maxNumberReached = true;
         }
+
         return maxNumberReached;
     }
-
 }
