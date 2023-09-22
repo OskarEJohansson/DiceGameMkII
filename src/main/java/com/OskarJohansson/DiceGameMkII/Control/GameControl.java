@@ -160,19 +160,19 @@ public class GameControl {
         }
     }
 
-    public void resetScore() {
+    public void resetScoreInAllObjects() {
         for (Player player : this.playerList) {
             player.resetScore();
         }
     }
 
-    public void resetDrawWinnerScore() {
+    public void resetDrawWinnerScoreInAllObjects() {
         for (Player player : this.playerList) {
             player.resetDrawScore();
         }
     }
 
-    public void resetDrawInAllObjects() {
+    public void resetDrawInAllObjectsInAllObjects() {
         for (Player player : this.drawList) {
             player.resetDraw();
         }
@@ -183,9 +183,9 @@ public class GameControl {
     }
 
     public void resetAll() {
-        resetScore();
-        resetDrawWinnerScore();
-        resetDrawInAllObjects();
+        resetScoreInAllObjects();
+        resetDrawWinnerScoreInAllObjects();
+        resetDrawInAllObjectsInAllObjects();
         resetDrawPlayerList();
         this.winnerScore = 0;
         this.drawWinnerObject = null;

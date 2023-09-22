@@ -47,7 +47,7 @@ public class GameFlow {
                 gameControl.addToDrawRound();
                 gameControl.playDrawRound();
                 gameControl.findDrawWinner();
-                gameControl.resetDrawInAllObjects();
+                gameControl.resetDrawInAllObjectsInAllObjects();
                 gameControl.findDrawInDraw();
             }
 

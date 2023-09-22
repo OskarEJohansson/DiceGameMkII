@@ -21,9 +21,11 @@ public class GameTexts {
 
 
     public void getReadyForRound(int roundCounter){
-        System.out.println("Get ready for round >>> " +
-                           roundCounter +
-                           " <<<\n");
+        System.out.println("""
+                          Get ready for round 
+                          >>> ${roundCounter} <<<
+                          
+                          """);
     }
     public void letsStartTheGame(){
         System.out.println("Let's start the game!");
@@ -50,7 +52,15 @@ public class GameTexts {
     }
 
     public void theWinnerIs(String name, int score){
-        System.out.println("THE WINNER IS \n\n" + ">>> " + name + " <<<" + "\n" + " with a total of " + score + "\n");
+        System.out.println("""
+                THE WINNER IS
+                
+                >>> ${name} <<< 
+                
+                with a total of 
+                    ${score} 
+                    
+                """);
     }
 
     public void welcomeToDraw(){
@@ -58,18 +68,15 @@ public class GameTexts {
         System.out.print("WE HAVE A DRAW \n");
     }
 
-    public void theWinnerOfAllRounds(String name, int score){
-        System.out.println("THE WINNER OF ALL ROUNDS IS \n" + ">>> " + name + " <<<" + "\n" + " with a total of " + score + "\n");
-    }
-
     public void playAnotherRound(){
 
         System.out.println("""
-                    \n Play another round?
-                    \n
+                    Play another round?
+                 
                     >>> Y/N <<<
                     Y to Continue
                     N to exit the application.
+                    
                     """);
     }
 }
