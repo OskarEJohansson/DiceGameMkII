@@ -21,11 +21,11 @@ public class GameTexts {
 
 
     public void getReadyForRound(int roundCounter){
-        System.out.println("""
-                          Get ready for round 
-                          >>> ${roundCounter} <<<
-                          
-                          """);
+        System.out.printf("""
+                Get ready for round
+                >>> %d <<<
+                                          
+                """, roundCounter);
     }
     public void letsStartTheGame(){
         System.out.println("Let's start the game!");
@@ -52,20 +52,19 @@ public class GameTexts {
     }
 
     public void theWinnerIs(String name, int score){
-        System.out.println("""
+        System.out.printf("""
                 THE WINNER IS
-                
-                >>> ${name} <<< 
-                
-                with a total of 
-                    ${score} 
-                    
-                """);
+                >>> %s <<<
+                                
+                with a total of
+                >>> %d <<<
+                                
+                """,name, score );
     }
 
     public void welcomeToDraw(){
 
-        System.out.print("WE HAVE A DRAW \n");
+        System.out.println("WE HAVE A DRAW \n");
     }
 
     public void playAnotherRound(){

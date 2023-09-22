@@ -30,40 +30,44 @@ public class GameFlow {
         gameControl.setNumberOfRounds();
 
         texts.letsStartTheGame();
-        while (isAppRunning) for (int i = 1; i <= gameControl.numberOfRounds; i++) {
 
-            gameControl.resetAll();
+        // OBS i = 1 and <= in forloop!
+        while (isAppRunning) {
+            for (int i = 1; i <= gameControl.numberOfRounds; i++) {
 
-            texts.getReadyForRound(i);
+                gameControl.resetAll();
 
-            gameControl.playRound();
-            gameControl.showResults();
+                texts.getReadyForRound(i);
+                gameControl.playRound();
 
-            gameControl.findWinner();
-            gameControl.findDraw();
+                texts.showResult();
+                gameControl.showResults();
 
-            while (gameControl.isDraw) {
-                texts.welcomeToDraw();
-                gameControl.addToDrawRound();
-                gameControl.playDrawRound();
-                gameControl.findDrawWinner();
-                gameControl.resetDrawInAllObjectsInAllObjects();
-                gameControl.findDrawInDraw();
+                gameControl.findWinner();
+                gameControl.findDraw();
+
+                while (gameControl.isDraw) {
+                    texts.welcomeToDraw();
+                    gameControl.playDrawRound();
+                    gameControl.findDrawWinner();
+                    gameControl.resetDrawInAllObjectsInAllObjects();
+                    gameControl.findDrawInDraw();
+                }
+
+                if (gameControl.isDraw) {
+                    texts.theWinnerIs(gameControl.drawWinnerObject.getName(), gameControl.drawWinnerObject.getDrawScore());
+                    gameControl.drawWinnerObject.setRoundWin();
+
+                } else {
+
+                    texts.theWinnerIs(gameControl.winnerObject.getName(), gameControl.winnerObject.getScore());
+                    gameControl.winnerObject.setRoundWin();
+                }
+
             }
 
-            if (!gameControl.drawList.isEmpty()) {
-                texts.theWinnerIs(gameControl.drawWinnerObject.getName(), gameControl.drawWinnerScore);
-                gameControl.drawWinnerObject.setRoundWin();
-
-            } else {
-
-                texts.theWinnerIs(gameControl.winnerObject.getName(), gameControl.winnerObject.getScore());
-                gameControl.winnerObject.setRoundWin();
-            }
-
+            texts.playAnotherRound();
+            gameControl.playAnotherRound();
         }
-
-        texts.playAnotherRound();
-        gameControl.playAnotherRound();
     }
 }

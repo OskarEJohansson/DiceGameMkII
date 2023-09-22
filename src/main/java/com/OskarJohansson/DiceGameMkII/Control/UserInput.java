@@ -9,11 +9,20 @@ public class UserInput {
 
     public int inputInt() {
         while (true) {
-            String userInput = sc.next();
-            try {
-                return Integer.parseInt(userInput);
-            } catch (NumberFormatException e) {
-                System.out.println("That's not a number!");
+            String inputValue = sc.nextLine();
+
+            if (inputValue.isEmpty()) {
+                System.out.println("Input is empty!");
+            } else {
+                try {
+                    int intValue = Integer.parseInt(inputValue);
+                    if (intValue < 0) {
+                        System.out.println("Input must be a positive number!");
+                    } else return intValue;
+
+                } catch (NumberFormatException e) {
+                    System.out.println("That's not a number!");
+                }
             }
         }
     }
@@ -23,9 +32,10 @@ public class UserInput {
         try {
             if (input > maxNumber) {
                 throw new IllegalArgumentException("Maximum number of " + noun + " are " + maxNumber + ". Try Again! ");
-
+            } else if (input < 0) {
+                System.out.println("Input must be a positive number!");
             }
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             maxNumberReached = true;
         }

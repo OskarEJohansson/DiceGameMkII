@@ -23,7 +23,6 @@ public class GameControl {
 
     UserInput userInput = new UserInput();
     ArrayList<Player> playerList = new ArrayList<>();
-    ArrayList<Player> drawList = new ArrayList<>();
     GameTexts texts = new GameTexts();
     Scanner sc = new Scanner(System.in);
     Dice dice = new Dice();
@@ -73,6 +72,7 @@ public class GameControl {
 
     public void playRound() {
         for (int i = 0; i < this.numberOfPlayers; i++) {
+
             Player player = this.playerList.get(i);
             diceLoop(player);
             dice.resetDiceCounter();
@@ -81,13 +81,20 @@ public class GameControl {
 
     public void diceLoop(Player player) {
 
-        for (int i = 0; i < this.numberOfDies; i++) {
+        if (isDraw) {
 
-            System.out.println(player.getName() + " rolls >>> " + player.setDiceRoll(dice.throwDice()) + " <<< with dice >>> " + dice.getDiceCounter() + " <<<");
-            player.setScore();
-            dice.addToDiceCounter();
-            breakButton();
-        }
+            player.setDrawScore(dice.throwDice());
+            System.out.println(player.getName() + " rolls >>> " + player.getDrawScore());
+
+        } else
+
+            for (int i = 0; i < this.numberOfDies; i++) {
+
+                System.out.println(player.getName() + " rolls >>> " + player.setDiceRoll(dice.throwDice()) + " <<< with dice >>> " + dice.getDiceCounter() + " <<<");
+                player.setScore();
+                dice.addToDiceCounter();
+                breakButton();
+            }
     }
 
     public void findWinner() {
@@ -102,22 +109,18 @@ public class GameControl {
 
     public void showResults() {
         for (Player player : this.playerList) {
-            // Iterate through all the players results
             System.out.println(">>> Score <<<");
             System.out.println(player.getName() + ": " + player.getScore() + " points. \n");
         }
     }
 
     public void playDrawRound() {
-        if (drawList != null)
-            for (Player player : this.drawList) {
-                diceLoopDraw(player);
+        if (isDraw)
+            for (Player player : this.playerList) {
+                if (player.getDraw()) {
+                    diceLoop(player);
+                }
             }
-    }
-
-    public void diceLoopDraw(Player player) {
-        player.setDrawScore(dice.throwDice());
-        System.out.println(player.getName() + " rolls >>> " + player.getDrawScore());
     }
 
 
@@ -131,17 +134,11 @@ public class GameControl {
         }
     }
 
-    public void addToDrawRound() {
-        for (Player player : this.playerList) {
-            if (player.getDraw()) {
-                drawList.add(player);
-            }
-        }
-    }
-
     public void findDrawInDraw() {
-        for (Player player : this.drawList) {
+        for (Player player : this.playerList) {
+
             if (player.getDrawScore() == this.drawWinnerObject.getDrawScore() && !Objects.equals(player.getName(), this.drawWinnerObject.getName())) {
+
                 player.setDraw(true);
                 this.drawWinnerObject.setDraw(true);
                 this.isDraw = true;
@@ -151,9 +148,10 @@ public class GameControl {
     }
 
     public void findDrawWinner() {
-        for (Player player : this.drawList) {
+        for (Player player : this.playerList) {
 
             if (player.getDrawScore() > drawWinnerScore) {
+
                 this.drawWinnerScore = player.getDrawScore();
                 this.drawWinnerObject = player;
             }
@@ -173,23 +171,18 @@ public class GameControl {
     }
 
     public void resetDrawInAllObjectsInAllObjects() {
-        for (Player player : this.drawList) {
+        for (Player player : this.playerList) {
             player.resetDraw();
         }
-    }
-
-    public void resetDrawPlayerList() {
-        this.drawList.clear();
     }
 
     public void resetAll() {
         resetScoreInAllObjects();
         resetDrawWinnerScoreInAllObjects();
         resetDrawInAllObjectsInAllObjects();
-        resetDrawPlayerList();
         this.winnerScore = 0;
-        this.drawWinnerObject = null;
-        this.winnerObject = null;
+        this.drawWinnerObject = new Player();
+        this.winnerObject = new Player();
     }
 
     public void resetRoundWin() {
