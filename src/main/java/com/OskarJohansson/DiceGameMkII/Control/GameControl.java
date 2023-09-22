@@ -122,8 +122,6 @@ public class GameControl {
                 }
             }
     }
-
-
     public void findDraw() {
         for (Player player : this.playerList) {
             if (player.getScore() == this.winnerObject.getScore() && !Objects.equals(player.getName(), this.winnerObject.getName())) {
