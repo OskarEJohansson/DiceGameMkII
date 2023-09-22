@@ -14,7 +14,7 @@ public class GameFlow {
     boolean isAppRunning = true;
 
 
-    public void runApp(){
+    public void runApp() {
 
         texts.welcomeMessage();
 
@@ -24,15 +24,13 @@ public class GameFlow {
         gameControl.namePlayers();
 
         texts.numberOfDice();
-        gameControl.setnumberOfDies();
+        gameControl.setNumberOfDies();
 
         texts.numberOfRounds();
         gameControl.setNumberOfRounds();
 
-
-
         texts.letsStartTheGame();
-        for (int i = 1; i <= gameControl.numberOfRounds ; i++) {
+        while (isAppRunning) for (int i = 1; i <= gameControl.numberOfRounds; i++) {
 
             gameControl.resetAll();
 
@@ -55,20 +53,16 @@ public class GameFlow {
 
             if (!gameControl.drawList.isEmpty()) {
                 texts.theWinnerIs(gameControl.drawWinnerObject.getName(), gameControl.drawWinnerScore);
-                gameControl.drawWinnerObject.setRoundWin(1);
+                gameControl.drawWinnerObject.setRoundWin();
 
             } else {
 
                 texts.theWinnerIs(gameControl.winnerObject.getName(), gameControl.winnerObject.getScore());
-                gameControl.winnerObject.setRoundWin(1);
+                gameControl.winnerObject.setRoundWin();
             }
 
         }
 
-        gameControl.findWinnerAllRounds();
-        texts.theWinnerOfAllRounds(gameControl.winnerAllRoundsObject.getName(), gameControl.winnerAllRoundsObject.getRoundWin());
-
-        gameControl.resetRoundWin();
         texts.playAnotherRound();
         gameControl.playAnotherRound();
     }

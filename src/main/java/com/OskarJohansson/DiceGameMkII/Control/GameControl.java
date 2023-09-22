@@ -15,16 +15,14 @@ public class GameControl {
     int counter = 1;
     int input;
     int winnerScore;
-    int winnerAllRounds;
     int drawWinnerScore;
     Player winnerObject;
-    Player winnerAllRoundsObject;
     Player drawWinnerObject;
     boolean isDraw = false;
     boolean appIsRunning = true;
 
     UserInput userInput = new UserInput();
-    ArrayList<Player> playerList = new ArrayList();
+    ArrayList<Player> playerList = new ArrayList<>();
     ArrayList<Player> drawList = new ArrayList<>();
     GameTexts texts = new GameTexts();
     Scanner sc = new Scanner(System.in);
@@ -39,7 +37,7 @@ public class GameControl {
         this.numberOfPlayers = input;
     }
 
-    public void setnumberOfDies() {
+    public void setNumberOfDies() {
         int maxNumber = 10;
         String noun = "dies";
         while (userInput.maxNumberOfInput(this.input = userInput.inputInt(), noun, maxNumber)) {
@@ -135,7 +133,7 @@ public class GameControl {
 
     public void addToDrawRound() {
         for (Player player : this.playerList) {
-            if (player.getDraw() == true) {
+            if (player.getDraw()) {
                 drawList.add(player);
             }
         }
@@ -162,56 +160,41 @@ public class GameControl {
         }
     }
 
-    public void findWinnerAllRounds() {
-        for (Player player : playerList) {
-
-            if (player.getRoundWin() > winnerAllRounds) {
-                this.winnerAllRoundsObject = player;
-            }
-        }
-    }
-
     public void resetScore() {
         for (Player player : this.playerList) {
-            player.setScore(0);
+            player.resetScore();
         }
-    }
-
-    public void resetWinnerObject() {
-        this.winnerObject = null;
     }
 
     public void resetDrawWinnerScore() {
         for (Player player : this.playerList) {
-            player.setDrawScore(0);
+            player.resetDrawScore();
         }
-    }
-
-    public void resetDrawWinnerObject() {
-        this.drawWinnerObject = null;
     }
 
     public void resetDrawInAllObjects() {
         for (Player player : this.drawList) {
-            player.setDraw(false);
+            player.resetDraw();
         }
     }
 
-    public void resetDrawPlayerList(){
-        this.drawList = null;
+    public void resetDrawPlayerList() {
+        this.drawList.clear();
     }
 
-    public void resetAll(){
+    public void resetAll() {
         resetScore();
-        resetWinnerObject();
         resetDrawWinnerScore();
-        resetDrawWinnerObject();
         resetDrawInAllObjects();
+        resetDrawPlayerList();
+        this.winnerScore = 0;
+        this.drawWinnerObject = null;
+        this.winnerObject = null;
     }
 
     public void resetRoundWin() {
         for (Player player : this.playerList) {
-            player.setRoundWin(0);
+            player.resetRoundWin();
         }
     }
 
@@ -221,8 +204,7 @@ public class GameControl {
     }
 
     public void playAnotherRound() {
-        if (sc.nextLine().equalsIgnoreCase("y")) {
-        } else appIsRunning = false;
+        this.appIsRunning = sc.nextLine().equalsIgnoreCase("y");
     }
 
 }

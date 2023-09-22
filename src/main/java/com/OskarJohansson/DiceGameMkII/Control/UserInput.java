@@ -11,8 +11,7 @@ public class UserInput {
         while (true) {
             String userInput = sc.next();
             try {
-                int intValue = Integer.parseInt(userInput);
-                return intValue;
+                return Integer.parseInt(userInput);
             } catch (NumberFormatException e) {
                 System.out.println("That's not a number!");
             }

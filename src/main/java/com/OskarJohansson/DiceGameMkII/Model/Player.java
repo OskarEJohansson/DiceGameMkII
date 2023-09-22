@@ -28,24 +28,24 @@ public class Player {
         return score;
     }
 
-    public void setScore(){
+    public void setScore() {
         this.score += this.diceRoll;
     }
 
-    // Set Player result
-    public void setScore(int score) {
-        this.score = score;
+    public void resetScore() {
+        this.score = 0;
     }
 
     public int getDrawScore() {
         return drawScore;
     }
+
     public void setDrawScore(int drawScore) {
         this.drawScore = drawScore;
     }
 
-    public int getDiceRoll() {
-        return diceRoll;
+    public void resetDrawScore() {
+        this.drawScore = 0;
     }
 
     public int setDiceRoll(int diceRoll) {
@@ -57,8 +57,12 @@ public class Player {
         return roundWin;
     }
 
-    public void setRoundWin(int roundInformation) {
-        this.roundWin = roundInformation;
+    public void setRoundWin() {
+        this.roundWin++;
+    }
+
+    public void resetRoundWin() {
+        this.roundWin = 0;
     }
 
     public boolean getDraw() {
@@ -68,7 +72,13 @@ public class Player {
     public void setDraw(boolean draw) {
         this.draw = draw;
     }
+
+    public void resetDraw() {
+        this.draw = false;
+    }
+
 }
+
 
 
 
