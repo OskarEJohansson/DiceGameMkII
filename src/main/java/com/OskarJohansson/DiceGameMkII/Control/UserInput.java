@@ -7,9 +7,9 @@ public class UserInput {
     Scanner sc = new Scanner(System.in);
 
 
-    public int inputInt() {
+    public int inputInt(Scanner scanner) {
         while (true) {
-            String inputValue = sc.nextLine();
+            String inputValue = scanner.nextLine();
 
             if (inputValue.isEmpty()) {
                 System.out.println("Input is empty!");

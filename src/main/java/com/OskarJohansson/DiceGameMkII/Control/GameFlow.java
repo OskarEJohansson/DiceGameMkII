@@ -1,33 +1,49 @@
 package com.OskarJohansson.DiceGameMkII.Control;
 
 import com.OskarJohansson.DiceGameMkII.Model.Dice;
+import com.OskarJohansson.DiceGameMkII.Model.Player;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameFlow {
 
-    GameTexts texts = new GameTexts();
-    GameControl gameControl = new GameControl();
-    Dice dice = new Dice();
-    Scanner sc = new Scanner(System.in);
+    GameControl gameControl;
+    GameTexts texts;
+    Dice dice;
+    Scanner scanner;
+    ArrayList<Player> playerList;
+    Player player;
+    UserInput userInput;
+    boolean isAppRunning;
 
-    boolean isAppRunning = true;
 
+    public GameFlow() {
+
+        this.gameControl = new GameControl();
+        this.texts = new GameTexts();
+        this.dice = new Dice();
+        this.scanner = new Scanner(System.in);
+        this.playerList = new ArrayList<>();
+        this.player = new Player();
+        this.userInput = new UserInput();
+        this.isAppRunning = true;
+    }
 
     public void runApp() {
 
         texts.welcomeMessage();
 
         texts.numberOfPlayers();
-        gameControl.setNumberOfPlayers();
+        gameControl.setNumberOfPlayers(scanner, userInput);
 
-        gameControl.namePlayers();
+        this.playerList = gameControl.namePlayers(playerList, scanner, texts);
 
         texts.numberOfDice();
-        gameControl.setNumberOfDies();
+        gameControl.setNumberOfDies(dice, userInput, scanner);
 
         texts.numberOfRounds();
-        gameControl.setNumberOfRounds();
+        gameControl.setNumberOfRounds(scanner, userInput);
 
         texts.letsStartTheGame();
 
@@ -35,23 +51,21 @@ public class GameFlow {
         while (isAppRunning) {
             for (int i = 1; i <= gameControl.numberOfRounds; i++) {
 
-                gameControl.resetAll();
+                gameControl.resetAll(playerList);
 
                 texts.getReadyForRound(i);
-                gameControl.playRound();
+                gameControl.playRound(playerList, player, dice, scanner);
 
                 texts.showResult();
-                gameControl.showResults();
+                gameControl.showResults(playerList);
 
-                gameControl.findWinner();
-                gameControl.findDraw();
+                gameControl.findWinner(playerList);
+                gameControl.findDraw(playerList);
 
                 while (gameControl.isDraw) {
                     texts.welcomeToDraw();
-                    gameControl.playDrawRound();
-                    gameControl.findDrawWinner();
-                    gameControl.resetDrawInAllObjectsInAllObjects();
-                    gameControl.findDrawInDraw();
+                    gameControl.playDrawRound(dice, playerList, scanner);
+                    gameControl.resetDrawInAllObjectsInAllObjects(playerList);
                 }
 
                 if (gameControl.isDraw) {
@@ -63,11 +77,9 @@ public class GameFlow {
                     texts.theWinnerIs(gameControl.winnerObject.getName(), gameControl.winnerObject.getScore());
                     gameControl.winnerObject.setRoundWin();
                 }
-
             }
-
             texts.playAnotherRound();
-            gameControl.playAnotherRound();
+            gameControl.playAnotherRound(scanner);
         }
     }
 }

@@ -8,11 +8,18 @@ import java.util.Random;
 public class Dice {
 
     //Number of dies to throw
+    int numberOfDice = 1;
     int diceCounter = 1;
     Random randomizer = new Random();
 
 
     //Get diceCount in game
+    public int getNumberOfDice() {
+        return numberOfDice;
+    }
+    public void setNumberOfDice(int numberOfDice) {
+        this.numberOfDice = numberOfDice;
+    }
     public int getDiceCounter() {
         return diceCounter;
     }
