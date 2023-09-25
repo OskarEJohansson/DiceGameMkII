@@ -43,7 +43,7 @@ public class GameFlow {
         gameControl.setNumberOfDies(dice, userInput, scanner);
 
         texts.numberOfRounds();
-        gameControl.setNumberOfRounds(scanner, userInput);
+        gameControl.setNumberOfRounds(userInput, scanner);
 
         texts.letsStartTheGame();
 

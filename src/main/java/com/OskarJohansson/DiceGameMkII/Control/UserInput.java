@@ -9,6 +9,7 @@ public class UserInput {
 
     public int inputInt(Scanner scanner) {
         while (true) {
+
             String inputValue = scanner.nextLine();
 
             if (inputValue.isEmpty()) {
@@ -20,12 +21,12 @@ public class UserInput {
                         System.out.println("Input must be a positive number!");
                     } else return intValue;
 
-                } catch (NumberFormatException e) {
-                    System.out.println("That's not a number!");
-                }
+            } catch(NumberFormatException e){
+                System.out.println("That's not a number!");
             }
         }
     }
+}
 
     public boolean maxNumberOfInput(int input, String noun, int maxNumber) {
         boolean maxNumberReached = false;

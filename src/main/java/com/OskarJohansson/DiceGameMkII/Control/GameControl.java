@@ -2,6 +2,7 @@ package com.OskarJohansson.DiceGameMkII.Control;
 
 import com.OskarJohansson.DiceGameMkII.Model.Dice;
 import com.OskarJohansson.DiceGameMkII.Model.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -15,7 +16,6 @@ public class GameControl {
     int input;
     int winnerScore;
     int drawWinnerScore;
-
     Player winnerObject;
     Player drawWinnerObject;
 
@@ -47,23 +47,19 @@ public class GameControl {
     }
 
     public ArrayList<Player> namePlayers(ArrayList<Player> playerList, Scanner scanner, GameTexts texts) {
-
         for (int i = 0; i < this.numberOfPlayers; i++) {
-
             texts.enterPlayerName(this.counter);
             Player player = new Player();
             playerList.add(createPlayer(player, scanner.nextLine()));
             counter++;
-
         }
         this.counter = 1;
         return playerList;
     }
 
-    public void setNumberOfRounds(Scanner scanner, UserInput userInput) {
+    public void setNumberOfRounds(@NotNull UserInput userInput, Scanner scanner) {
         int maxNumber = 10;
         String noun = "rounds";
-
         while (userInput.maxNumberOfInput(this.input = userInput.inputInt(scanner), noun, maxNumber)) {
             scanner.next();
         }
@@ -72,25 +68,17 @@ public class GameControl {
 
     public void playRound(ArrayList<Player> playerList, Player player, Dice dice, Scanner scanner) {
         for (int i = 0; i < this.numberOfPlayers; i++) {
-
             player = playerList.get(i);
             diceLoop(player, dice, scanner);
             dice.resetDiceCounter();
-
         }
     }
-
     public void diceLoop(Player player, Dice dice, Scanner scanner) {
-
         if (isDraw) {
-
             player.setDrawScore(dice.throwDice());
             System.out.println(player.getName() + " rolls >>> " + player.getDrawScore());
-
         } else
-
             for (int i = 0; i < dice.getNumberOfDice(); i++) {
-
                 System.out.println(player.getName() + " rolls >>> " + player.setDiceRoll(dice.throwDice()) + " <<< with dice >>> " + dice.getDiceCounter() + " <<<");
                 player.setScore();
                 dice.addToDiceCounter();
@@ -98,9 +86,8 @@ public class GameControl {
             }
     }
 
-    public void findWinner(ArrayList<Player> playerList) {
+    public void findWinner(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
-
             while (isDraw) {
                 if (player.getDrawScore() > drawWinnerScore) {
                     this.drawWinnerScore = player.getDrawScore();
@@ -114,7 +101,7 @@ public class GameControl {
         }
     }
 
-    public void showResults(ArrayList<Player> playerList) {
+    public void showResults(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
             System.out.println(">>> Score <<<");
             System.out.println(player.getName() + ": " + player.getScore() + " points. \n");
@@ -130,7 +117,8 @@ public class GameControl {
             }
     }
 
-    public void findDraw(ArrayList<Player> playerList) {
+    public void findDraw(@NotNull ArrayList<Player> playerList) {
+
         for (Player player : playerList) {
 
             while (player.getDraw()) {
@@ -143,31 +131,27 @@ public class GameControl {
             }
             if (player.getScore() == this.winnerObject.getScore() && !Objects.equals(player.getName(), this.winnerObject.getName())) {
                 player.setDraw(true);
+
                 this.winnerObject.setDraw(true);
                 this.isDraw = true;
             }
         }
-
     }
-
-    public void resetScoreInAllObjects(ArrayList<Player> playerList) {
+    public void resetScoreInAllObjects(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
             player.resetScore();
         }
     }
-
-    public void resetDrawWinnerScoreInAllObjects(ArrayList<Player> playerList) {
+    public void resetDrawWinnerScoreInAllObjects(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
             player.resetDrawScore();
         }
     }
-
-    public void resetDrawInAllObjectsInAllObjects(ArrayList<Player> playerList) {
+    public void resetDrawInAllObjectsInAllObjects(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
             player.resetDraw();
         }
     }
-
     public void resetAll(ArrayList<Player> playerList) {
         resetScoreInAllObjects(playerList);
         resetDrawWinnerScoreInAllObjects(playerList);
@@ -177,18 +161,16 @@ public class GameControl {
         this.winnerObject = new Player();
     }
 
-    public void resetRoundWin(ArrayList<Player> playerList) {
+    public void resetRoundWin(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
             player.resetRoundWin();
         }
     }
-
-    public void breakButton(Scanner scanner) {
+    public void breakButton(@NotNull Scanner scanner) {
         System.out.println("Press 'Enter' to continue");
         scanner.nextLine();
     }
-
-    public void playAnotherRound(Scanner scanner) {
+    public void playAnotherRound(@NotNull Scanner scanner) {
         this.appIsRunning = scanner.nextLine().equalsIgnoreCase("y");
     }
 }
