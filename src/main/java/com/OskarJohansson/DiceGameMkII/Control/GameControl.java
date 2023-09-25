@@ -26,19 +26,23 @@ public class GameControl {
     public void setNumberOfPlayers(Scanner scanner, UserInput userInput) {
         int maxNumber = 10;
         String noun = "players";
-        while (userInput.maxNumberOfInput(this.input = userInput.inputInt(scanner), noun, maxNumber)) {
-            scanner.next();
-        }
-        this.numberOfPlayers = input;
+        int result;
+
+        do {result = userInput.inputToMaxNumberOfInputs(userInput, scanner, noun, maxNumber);}
+        while (result == -1);
+
+        this.numberOfPlayers = result;
     }
 
     public void setNumberOfDies(Dice dice, UserInput userInput, Scanner scanner) {
         int maxNumber = 10;
         String noun = "dies";
-        while (userInput.maxNumberOfInput(this.input = userInput.inputInt(scanner), noun, maxNumber)) {
-            scanner.next();
-        }
-        dice.setNumberOfDice(input);
+        int result;
+
+        do {result = userInput.inputToMaxNumberOfInputs(userInput, scanner, noun, maxNumber);}
+        while (result == -1);
+
+        dice.setNumberOfDice(result);
     }
 
     public Player createPlayer(Player player, String name) {
@@ -58,12 +62,14 @@ public class GameControl {
     }
 
     public void setNumberOfRounds(@NotNull UserInput userInput, Scanner scanner) {
-        int maxNumber = 10;
         String noun = "rounds";
-        while (userInput.maxNumberOfInput(this.input = userInput.inputInt(scanner), noun, maxNumber)) {
-            scanner.next();
-        }
-        this.numberOfRounds = input;
+        int maxNumber = 10;
+        int result;
+
+        do {result = userInput.inputToMaxNumberOfInputs(userInput, scanner, noun, maxNumber);}
+        while (result == -1);
+
+        this.numberOfRounds = result;
     }
 
     public void playRound(ArrayList<Player> playerList, Player player, Dice dice, Scanner scanner) {
@@ -87,7 +93,7 @@ public class GameControl {
     }
 
     public void findWinner(@NotNull ArrayList<Player> playerList) {
-        for (Player player : playerList) {
+        playerList.forEach(player -> {
             while (isDraw) {
                 if (player.getDrawScore() > drawWinnerScore) {
                     this.drawWinnerScore = player.getDrawScore();
@@ -98,14 +104,14 @@ public class GameControl {
                 this.winnerScore = player.getScore();
                 this.winnerObject = player;
             }
-        }
+        });
     }
 
     public void showResults(@NotNull ArrayList<Player> playerList) {
-        for (Player player : playerList) {
+        playerList.forEach(player -> {
             System.out.println(">>> Score <<<");
             System.out.println(player.getName() + ": " + player.getScore() + " points. \n");
-        }
+        });
     }
 
     public void playDrawRound(Dice dice, ArrayList<Player> playerList, Scanner scanner) {

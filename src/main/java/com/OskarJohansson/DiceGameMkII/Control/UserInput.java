@@ -4,43 +4,61 @@ import java.util.Scanner;
 
 public class UserInput {
 
-    Scanner sc = new Scanner(System.in);
-
-
     public int inputInt(Scanner scanner) {
-        while (true) {
+        boolean invalidInput = true;
+        int result = 0;
 
-            String inputValue = scanner.nextLine();
+        while (invalidInput) {
+            result = checkInputForInvalidInputs(scanner.nextLine());
 
-            if (inputValue.isEmpty()) {
-                System.out.println("Input is empty!");
-            } else {
-                try {
-                    int intValue = Integer.parseInt(inputValue);
-                    if (intValue < 0) {
-                        System.out.println("Input must be a positive number!");
-                    } else return intValue;
-
-            } catch(NumberFormatException e){
-                System.out.println("That's not a number!");
+            if (result != -1) {
+                invalidInput = false;
             }
         }
+        return result;
+    }
+
+    public int checkInputForInvalidInputs(String inputValue) {
+        int intValue = 0;
+
+        if (inputValue.isBlank()) {
+            System.out.println("Input is empty! Try Again!");
+            return -1;
+
+        } else {
+            try {
+                intValue = inputMustBeAPositiveNumber(Integer.parseInt(inputValue));
+
+            } catch (NumberFormatException e) {
+                System.out.println("That's not a number! Try Again!");
+                return -1;
+            }
+        }
+        return intValue;
+    }
+
+    public int inputMustBeAPositiveNumber(int intValue) {
+
+        if (intValue < 0) {
+            System.out.println("Input must be a positive number! Try Again!");
+            return -1;
+        }
+        return intValue;
+    }
+
+    public int inputToMaxNumberOfInputs(UserInput userInput, Scanner scanner, String noun, int maxNumber){
+        int result;
+        result = userInput.maxNumberOfInput(userInput.inputInt(scanner), noun, maxNumber);
+        return result;
+    }
+
+    public int maxNumberOfInput(int input, String noun, int maxNumber) {
+        if (input > maxNumber) {
+            System.out.println("Maximum number of " + noun + " are " + maxNumber + ". Try Again! ");
+            return -1;
+        }
+        return input;
     }
 }
 
-    public boolean maxNumberOfInput(int input, String noun, int maxNumber) {
-        boolean maxNumberReached = false;
-        try {
-            if (input > maxNumber) {
-                throw new IllegalArgumentException("Maximum number of " + noun + " are " + maxNumber + ". Try Again! ");
-            } else if (input < 0) {
-                System.out.println("Input must be a positive number!");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            maxNumberReached = true;
-        }
 
-        return maxNumberReached;
-    }
-}
