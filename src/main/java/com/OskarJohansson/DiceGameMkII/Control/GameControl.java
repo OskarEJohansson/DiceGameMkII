@@ -13,12 +13,10 @@ public class GameControl {
     int numberOfRounds = 0;
     int numberOfPlayers = 0;
     int counter = 1;
-    int input;
     int winnerScore;
     int drawWinnerScore;
     Player winnerObject;
     Player drawWinnerObject;
-
     boolean isDraw = false;
     boolean appIsRunning = true;
 
