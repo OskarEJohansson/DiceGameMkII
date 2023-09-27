@@ -1,6 +1,7 @@
 package com.OskarJohansson.DiceGameMkII.Control;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class UserInput {
 
@@ -44,12 +45,6 @@ public class UserInput {
             return -1;
         }
         return intValue;
-    }
-
-    public int inputToMaxNumberOfInputs(UserInput userInput, Scanner scanner, String noun, int maxNumber){
-        int result;
-        result = userInput.maxNumberOfInput(userInput.inputInt(scanner), noun, maxNumber);
-        return result;
     }
 
     public int maxNumberOfInput(int input, String noun, int maxNumber) {

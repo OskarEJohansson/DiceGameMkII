@@ -12,6 +12,7 @@ public class GameControl {
 
     int numberOfRounds = 0;
     int numberOfPlayers = 0;
+    int result;
     int counter = 1;
     int winnerScore;
     int drawWinnerScore;
@@ -24,23 +25,25 @@ public class GameControl {
     public void setNumberOfPlayers(Scanner scanner, UserInput userInput) {
         int maxNumber = 10;
         String noun = "players";
-        int result;
 
-        do {result = userInput.inputToMaxNumberOfInputs(userInput, scanner, noun, maxNumber);}
-        while (result == -1);
+        do {
+            this.result = userInput.maxNumberOfInput(userInput.inputInt(scanner), noun, maxNumber);
+        }
+        while (this.result == -1);
 
-        this.numberOfPlayers = result;
+        this.numberOfPlayers = this.result;
     }
 
     public void setNumberOfDies(Dice dice, UserInput userInput, Scanner scanner) {
         int maxNumber = 10;
         String noun = "dies";
-        int result;
 
-        do {result = userInput.inputToMaxNumberOfInputs(userInput, scanner, noun, maxNumber);}
-        while (result == -1);
+        do {
+            this.result = userInput.maxNumberOfInput(userInput.inputInt(scanner), noun, maxNumber);
+        }
+        while (this.result == -1);
 
-        dice.setNumberOfDice(result);
+        dice.setNumberOfDice(this.result);
     }
 
     public Player createPlayer(Player player, String name) {
@@ -62,12 +65,13 @@ public class GameControl {
     public void setNumberOfRounds(@NotNull UserInput userInput, Scanner scanner) {
         String noun = "rounds";
         int maxNumber = 10;
-        int result;
 
-        do {result = userInput.inputToMaxNumberOfInputs(userInput, scanner, noun, maxNumber);}
-        while (result == -1);
+        do {
+            this.result = userInput.maxNumberOfInput(userInput.inputInt(scanner), noun, maxNumber);
+        }
+        while (this.result == -1);
 
-        this.numberOfRounds = result;
+        this.numberOfRounds = this.result;
     }
 
     public void playRound(ArrayList<Player> playerList, Player player, Dice dice, Scanner scanner) {
@@ -77,6 +81,7 @@ public class GameControl {
             dice.resetDiceCounter();
         }
     }
+
     public void diceLoop(Player player, Dice dice, Scanner scanner) {
         if (isDraw) {
             player.setDrawScore(dice.throwDice());
@@ -141,21 +146,25 @@ public class GameControl {
             }
         }
     }
+
     public void resetScoreInAllObjects(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
             player.resetScore();
         }
     }
+
     public void resetDrawWinnerScoreInAllObjects(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
             player.resetDrawScore();
         }
     }
+
     public void resetDrawInAllObjectsInAllObjects(@NotNull ArrayList<Player> playerList) {
         for (Player player : playerList) {
             player.resetDraw();
         }
     }
+
     public void resetAll(ArrayList<Player> playerList) {
         resetScoreInAllObjects(playerList);
         resetDrawWinnerScoreInAllObjects(playerList);
@@ -170,10 +179,12 @@ public class GameControl {
             player.resetRoundWin();
         }
     }
+
     public void breakButton(@NotNull Scanner scanner) {
         System.out.println("Press 'Enter' to continue");
         scanner.nextLine();
     }
+
     public void playAnotherRound(@NotNull Scanner scanner) {
         this.appIsRunning = scanner.nextLine().equalsIgnoreCase("y");
     }
