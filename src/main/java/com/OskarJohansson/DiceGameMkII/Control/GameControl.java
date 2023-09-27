@@ -76,6 +76,7 @@ public class GameControl {
 
     public void playRound(ArrayList<Player> playerList, Player player, Dice dice, Scanner scanner) {
         for (int i = 0; i < this.numberOfPlayers; i++) {
+            
             player = playerList.get(i);
             diceLoop(player, dice, scanner);
             dice.resetDiceCounter();
