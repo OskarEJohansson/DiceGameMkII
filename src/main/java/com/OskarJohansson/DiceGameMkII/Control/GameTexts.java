@@ -1,5 +1,6 @@
 package com.OskarJohansson.DiceGameMkII.Control;
 
+import com.OskarJohansson.DiceGameMkII.Model.Dice;
 import com.OskarJohansson.DiceGameMkII.Model.Game;
 import com.OskarJohansson.DiceGameMkII.Model.Player;
 
@@ -50,12 +51,12 @@ public class GameTexts {
         System.out.println("Set number of rounds to play: ");
     }
 
-    public void diceLoop(Player player){
-        System.out.println(player.getName() + " rolls >>> " + player.getDrawScore());
+    public void diceLoop(Player player, Dice dice){
+        System.out.println(player.getName() + " rolls >>> " + player.getDiceRoll() + " <<< with dice >>> " + dice.getDiceCounter() + " <<<");
     }
 
-    public void diceLoopDraw(){
-
+    public void diceLoopDraw(Player player){
+        System.out.println(player.getName() + " rolls >>> " + player.getDrawScore());
     }
 
     public void showResult(Player player){

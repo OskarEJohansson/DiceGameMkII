@@ -21,8 +21,8 @@ public class Game {
         this.winnerScore = 0;
         this.drawWinnerScore = 0;
         this.playerList = new ArrayList<Player>();
-        this.winnerObject= null;
-        this.drawWinnerObject= null;
+        this.winnerObject= new Player();
+        this.drawWinnerObject= new Player();
         this.isDraw = false;
     }
 

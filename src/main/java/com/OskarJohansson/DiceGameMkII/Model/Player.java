@@ -53,6 +53,10 @@ public class Player {
         return diceRoll;
     }
 
+    public int getDiceRoll(){
+        return this.diceRoll;
+    }
+
     public int getRoundWin() {
         return roundWin;
     }

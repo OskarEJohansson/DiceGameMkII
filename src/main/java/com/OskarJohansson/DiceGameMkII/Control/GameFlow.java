@@ -1,35 +1,46 @@
 package com.OskarJohansson.DiceGameMkII.Control;
 
+import com.OskarJohansson.DiceGameMkII.Control.GameControl.*;
 import com.OskarJohansson.DiceGameMkII.Model.Dice;
 import com.OskarJohansson.DiceGameMkII.Model.Game;
 import com.OskarJohansson.DiceGameMkII.Model.Player;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Set;
 
 public class GameFlow {
 
-    GameControl gameControl;
+
     GameTexts texts;
     Game game;
+    Player player;
     Dice dice;
     Scanner scanner;
-
-    Player player;
     UserInput userInput;
     boolean isAppRunning;
 
+    SetGameParameters setGameParameters;
+    CreatePlayer createPlayer;
+    PlayRound playRound;
+    GameResults gameResults;
+    ResetParameters resetParameters;
 
     public GameFlow() {
 
-        this.gameControl = new GameControl();
         this.texts = new GameTexts();
-        this.dice = new Dice();
         this.game = new Game();
-        this.scanner = new Scanner(System.in);
         this.player = new Player();
+        this.dice = new Dice();
+        this.scanner = new Scanner(System.in);
         this.userInput = new UserInput();
         this.isAppRunning = true;
+
+        this.setGameParameters = new SetGameParameters();
+        this.createPlayer = new CreatePlayer();
+        this.playRound = new PlayRound();
+        this.gameResults = new GameResults();
+        this.resetParameters = new ResetParameters();
+
     }
 
     public void runApp() {
@@ -37,50 +48,53 @@ public class GameFlow {
         texts.welcomeMessage();
 
         texts.numberOfPlayers();
-        gameControl.setNumberOfPlayers(game, userInput, scanner);
 
-        gameControl.namePlayers(game, player, texts, scanner);
+        setGameParameters.setNumberOfPlayers(game, userInput, scanner);
+
+        createPlayer.namePlayers(game, texts, scanner);
 
         texts.numberOfDice();
-        gameControl.setNumberOfDies(dice, userInput, scanner);
+        setGameParameters.setNumberOfDies(dice, userInput, scanner);
 
         texts.numberOfRounds();
-        gameControl.setNumberOfRounds(game, userInput, scanner);
+        setGameParameters.setNumberOfRounds(game, userInput, scanner);
 
         texts.letsStartTheGame();
 
-        int i = 0;
+        while (isAppRunning) {
 
-        do {
-            texts.getReadyForRound(game.getCounter());
-            gameControl.playRound(game, dice, texts, scanner);
+            for (int i = 0; i < game.getNumberOfRounds(); i++) {
 
-            gameControl.showResults(game, texts);
+                resetParameters.resetAll(game); // Not working properly
 
-            gameControl.findWinner(game);
-            gameControl.findDraw(game);
+                texts.getReadyForRound(game.getCounter());
+                playRound.playRound(game, dice, texts, scanner);
 
-            while (game.isDraw()) {
-                texts.welcomeToDraw();
-                gameControl.playDrawRound(game, dice, texts, scanner);
-                gameControl.resetDrawInAllObjectsInAllObjects(game);
+                gameResults.showResults(game, texts);
+
+                gameResults.findWinner(game);
+                gameResults.findDraw(game);
+
+                while (game.isDraw()) {
+
+                    texts.welcomeToDraw();
+                    playRound.playDrawRound(game, dice, texts, scanner);
+                    playRound.breakButton(scanner);
+                    resetParameters.resetDrawInAllObjectsInAllObjects(game);
+                }
+
+                if (game.isDraw()) {
+                    texts.theWinnerIs(game.getDrawWinnerObject().getName(), game.getDrawWinnerObject().getDrawScore());
+                    player.setRoundWin();
+
+                } else {
+                    texts.theWinnerIs((game.getWinnerObject().getName()), game.getWinnerObject().getScore());
+                    player.setRoundWin();
+                }
             }
-
-            if (game.isDraw()) {
-                player = game.getDrawWinnerObject();
-                texts.theWinnerIs(player.getName(), player.getDrawScore());
-                player.setRoundWin();
-
-            } else {
-                player = game.getWinnerObject();
-                texts.theWinnerIs(player.getName(), player.getScore());
-                player.setRoundWin();
-            }
-            i++;
-
-        } while (isAppRunning || i <= game.getNumberOfRounds());
+        }
         texts.playAnotherRound();
-        gameControl.playAnotherRound(scanner);
+        playRound.playAnotherRound(scanner);
     }
 }
 
