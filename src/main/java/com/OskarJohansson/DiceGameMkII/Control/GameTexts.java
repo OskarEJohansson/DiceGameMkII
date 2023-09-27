@@ -1,5 +1,8 @@
 package com.OskarJohansson.DiceGameMkII.Control;
 
+import com.OskarJohansson.DiceGameMkII.Model.Game;
+import com.OskarJohansson.DiceGameMkII.Model.Player;
+
 public class GameTexts {
 
     public void welcomeMessage(){
@@ -47,8 +50,16 @@ public class GameTexts {
         System.out.println("Set number of rounds to play: ");
     }
 
-    public void showResult(){
-        System.out.println("The results from this round is: ");
+    public void diceLoop(Player player){
+        System.out.println(player.getName() + " rolls >>> " + player.getDrawScore());
+    }
+
+    public void diceLoopDraw(){
+
+    }
+
+    public void showResult(Player player){
+        System.out.println("The results from this round is: " + ">>> Score <<<" + player.getName() + ": " + player.getScore() + " points. \n"); // MAKE """ TEXT BLOCK """
     }
 
     public void theWinnerIs(String name, int score){

@@ -28,7 +28,7 @@ public class UserInput {
 
         } else {
             try {
-                intValue = inputMustBeAPositiveNumber(Integer.parseInt(inputValue));
+                intValue = inputMustBeAPositiveNumber(Integer.parseInt(inputValue.stripLeading().stripTrailing()));
 
             } catch (NumberFormatException e) {
                 System.out.println("That's not a number! Try Again!");
