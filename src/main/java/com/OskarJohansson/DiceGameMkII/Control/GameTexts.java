@@ -62,8 +62,11 @@ public class GameTexts {
     public void showResult(Player player){
         System.out.println("The results from this round is: " + ">>> Score <<<" + player.getName() + ": " + player.getScore() + " points. \n"); // MAKE """ TEXT BLOCK """
     }
+    public void showDrawResult(Player player){
+        System.out.println("The winner of the draw round is: " + ">>> Score <<<\n" + player.getName() + ": /n" + player.getScore() + " points. \n"); // MAKE """ TEXT BLOCK """
+    }
 
-    public void theWinnerIs(String name, int score){
+    public void theWinnerIs(Player player){
         System.out.printf("""
                 THE WINNER IS
                 >>> %s <<<
@@ -71,7 +74,7 @@ public class GameTexts {
                 with a total of
                 >>> %d <<<
                                 
-                """,name, score );
+                """,player.getName(), player.getScore() );
     }
 
     public void welcomeToDraw(){

@@ -20,6 +20,8 @@ public class ResetParameters {
         game.getPlayerList().forEach(Player::resetDraw);
     }
 
+    public void resetRoundWin(Game game) {game.getPlayerList().forEach(Player::resetRoundWin);
+    }
     public void resetAll(Game game) {
         resetScoreInAllObjects(game);
         resetDrawWinnerScoreInAllObjects(game);
@@ -28,11 +30,4 @@ public class ResetParameters {
         game.resetDrawWinnerObject();
         game.resetWinnerObject();
     }
-
-    public void resetRoundWin(@NotNull ArrayList<Player> playerList) {
-        for (Player player : playerList) {
-            player.resetRoundWin();
-        }
-    }
-
 }
