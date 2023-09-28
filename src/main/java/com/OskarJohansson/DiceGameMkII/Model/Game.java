@@ -50,6 +50,11 @@ public class Game {
         this.counter = counter;
     }
 
+    public void resetCounter(int counter) {
+        this.counter = counter;
+    }
+
+
     public void addToCounter(){
         this.counter++;
     }

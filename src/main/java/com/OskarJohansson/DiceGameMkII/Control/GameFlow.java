@@ -8,6 +8,7 @@ import com.OskarJohansson.DiceGameMkII.Model.Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 public class GameFlow {
 
@@ -19,7 +20,7 @@ public class GameFlow {
     Scanner scanner;
     UserInput userInput;
     boolean isAppRunning;
-    boolean isDraw;
+    int isDraw;
 
     SetGameParameters setGameParameters;
     CreatePlayer createPlayer;
@@ -36,6 +37,7 @@ public class GameFlow {
         this.scanner = new Scanner(System.in);
         this.userInput = new UserInput();
         this.isAppRunning = true;
+        this.isDraw = 0;
 
         this.setGameParameters = new SetGameParameters();
         this.createPlayer = new CreatePlayer();
@@ -92,6 +94,8 @@ public class GameFlow {
 
         while (isAppRunning) {
 
+            game.resetCounter(1);
+
             for (int i = 0; i < game.getNumberOfRounds(); i++) {
 
                 resetParameters.resetScoreInAllObjects(game);
@@ -99,22 +103,23 @@ public class GameFlow {
                 resetParameters.resetDrawInAllObjectsInAllObjects(game);
 
                 texts.getReadyForRound(game.getCounter());
-                playRound.playRound(game, dice, texts, scanner);
+                playRound.playRound(game, dice, texts, resetParameters, scanner);
 
                 gameResults.showResults(game, texts);
 
-                gameResults.findWinner(game);
-                gameResults.findDraw(game);
+                gameResults.findWinner(game, resetParameters);
+                gameResults.findDraw(game, resetParameters);
 
                 while (game.isDraw()) {
                     texts.welcomeToDraw();
-                    this.isDraw = playRound.playRound(game, dice, texts, scanner);
-                    game.setDraw(false);
+                    this.isDraw = playRound.playRound(game, dice, texts, resetParameters, scanner);
+                    gameResults.findWinner(game, resetParameters);
+                    gameResults.findDraw(game, resetParameters);
                 }
 
-                if (this.isDraw) {
-                    gameResults.showDrawResults(game, texts); // FIX!
-                    this.isDraw = false;
+                if (this.isDraw == 1) {
+                    texts.showDrawResult(game.getDrawWinnerObject());
+                    this.isDraw = 0;
 
                 } else {
                     texts.theWinnerIs(game.getWinnerObject());

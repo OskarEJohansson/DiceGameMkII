@@ -14,10 +14,12 @@ public class GameResultsTest extends TestCase {
     GameResults gameResults;
     Player player;
     ArrayList<Player> playerlist;
+    ResetParameters resetParameters;
 
     @Before
     public void setUp(){
 
+        resetParameters = new ResetParameters();
         game = new Game();
         gameResults = new GameResults();
         player = new Player();
@@ -39,7 +41,7 @@ public class GameResultsTest extends TestCase {
     @Test
     public void testFindDraw() {
 
-        gameResults.findDraw(game);
+        gameResults.findDraw(game, resetParameters);
         assertEquals(true, game.isDraw());
 
     }

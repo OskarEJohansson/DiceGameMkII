@@ -14,47 +14,53 @@ public class GameResults {
         game.getPlayerList().forEach(texts::showResult);
     }
 
-    public void showDrawResults(Game game, GameTexts texts) {game.getPlayerList().stream().filter(Player::getDraw).forEach(texts::showDrawResult);}
+    public void showDrawResults(Game game, GameTexts texts) {
+        game.getPlayerList().stream().filter(Player::getDraw).forEach(texts::showDrawResult);
+    }
 
-    public void findWinner(Game game) {
+    public void findWinner(Game game, ResetParameters resetParameters) {
 
         game.getPlayerList().forEach(player -> {
 
-            if(player.getDraw()){
+            if (player.getDraw()) {
 
-                if(player.getDrawScore() > game.getDrawWinnerScore()){
+                if (player.getDrawScore() > game.getDrawWinnerScore()) {
+
                     game.setDrawWinnerScore(player.getDrawScore());
                     game.setDrawWinnerObject(player);
                 }
-            }
 
-            if (player.getScore() > game.getWinnerScore()) {
-                game.setWinnerScore(player.getScore());
-                game.setWinnerObject(player);
+            } else {
+
+                if (player.getScore() > game.getWinnerScore()) {
+
+                    game.setWinnerScore(player.getScore());
+                    game.setWinnerObject(player);
+                }
             }
         });
     }
 
-    public void findDraw(Game game){
+    public void findDraw(Game game, ResetParameters resetParameters) {
 
-        game.getPlayerList().forEach(player ->{
+        game.getPlayerList().forEach(player -> {
 
-            if(game.isDraw()){
+            if (game.isDraw()) {
 
-                if(game.getDrawWinnerObject().getDrawScore() == player.getDrawScore() && game.getDrawWinnerObject().getName() != player.getName()){
-                   game.setDraw(true);
+                game.setDraw(false);
+
+                if (game.getDrawWinnerObject().getDrawScore() == player.getDrawScore() && game.getDrawWinnerObject().getName() != player.getName()) {
+                    game.setDraw(true);
                     game.getDrawWinnerObject().setDraw(true);
                     player.setDraw(true);
                 }
-            }
 
-            if(game.getWinnerObject().getScore() == player.getScore() && game.getWinnerObject().getName() != player.getName()){
+            } else if (game.getWinnerObject().getScore() == player.getScore() && game.getWinnerObject().getName() != player.getName()) {
                 game.setDraw(true);
                 game.getWinnerObject().setDraw(true);
                 player.setDraw(true);
             }
         });
-
     }
 
 
@@ -127,7 +133,7 @@ public class GameResults {
 //                game.setWinnerObject(player);
 //            }
 //        }
-    }
+}
 
 //    public void findDraw(Game game) {
 //

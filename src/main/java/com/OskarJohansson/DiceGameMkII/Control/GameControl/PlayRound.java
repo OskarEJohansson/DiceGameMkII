@@ -14,15 +14,19 @@ public class PlayRound {
 
     boolean appIsRunning = true;
 
-    public boolean playRound(Game game, Dice dice, GameTexts texts, Scanner scanner) {
+    public int playRound(Game game, Dice dice, GameTexts texts, ResetParameters resetParameters, Scanner scanner) {
 
-        Boolean isDraw = false;
+        int isDraw = 0;
 
         if (game.getPlayerList().stream().filter(Player::getDraw).toArray().length > 0) {
-            isDraw = true;
+
+            isDraw = 1;
+
             game.getPlayerList().stream().filter(Player::getDraw).forEach(player -> {
                 diceLoop(game, player, dice, texts, scanner);
+
             });
+
         } else {
             game.getPlayerList().forEach(player -> diceLoop(game, player, dice, texts, scanner));
             dice.resetDiceCounter();
