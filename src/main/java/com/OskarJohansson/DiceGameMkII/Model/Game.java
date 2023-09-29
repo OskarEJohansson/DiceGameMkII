@@ -8,22 +8,16 @@ public class Game {
     int numberOfPlayers;
     int counter;
     int winnerScore;
-    int drawWinnerScore;
     ArrayList<Player> playerList;
     Player winnerObject;
-    Player drawWinnerObject;
-    boolean isDraw;
 
     public Game(){
         this.numberOfRounds = 0;
         this.numberOfPlayers = 0;
         this.counter = 1;
         this.winnerScore = 0;
-        this.drawWinnerScore = 0;
         this.playerList = new ArrayList<Player>();
         this.winnerObject= new Player();
-        this.drawWinnerObject= new Player();
-        this.isDraw = false;
     }
 
     public int getNumberOfRounds() {
@@ -54,7 +48,6 @@ public class Game {
         this.counter = counter;
     }
 
-
     public void addToCounter(){
         this.counter++;
     }
@@ -67,16 +60,8 @@ public class Game {
         this.winnerScore = winnerScore;
     }
 
-    public int getDrawWinnerScore() {
-        return drawWinnerScore;
-    }
-
-    public void setDrawWinnerScore(int drawWinnerScore) {
-        this.drawWinnerScore = drawWinnerScore;
-    }
-
-    public void resetDrawWinnerScore() {
-        this.drawWinnerScore = 0;
+    public void resetWinnerScore() {
+        this.winnerScore = 0;
     }
 
     public Player getWinnerObject() {
@@ -99,24 +84,5 @@ public class Game {
         this.winnerObject = new Player();
     }
 
-    public Player getDrawWinnerObject() {
-        return drawWinnerObject;
-    }
-
-    public void setDrawWinnerObject(Player drawWinnerObject) {
-        this.drawWinnerObject = drawWinnerObject;
-    }
-
-    public void resetDrawWinnerObject() {
-        this.drawWinnerObject = new Player();
-    }
-
-    public boolean isDraw() {
-        return isDraw;
-    }
-
-    public void setDraw(boolean draw) {
-        isDraw = draw;
-    }
 
 }

@@ -9,7 +9,6 @@ public class Player {
     private int drawScore = 0;
     private int diceRoll = 0;
     private int roundWin = 0;
-    private boolean draw = false;
 
     UserInput scanner = new UserInput();
 
@@ -67,18 +66,6 @@ public class Player {
 
     public void resetRoundWin() {
         this.roundWin = 0;
-    }
-
-    public boolean getDraw() {
-        return draw;
-    }
-
-    public void setDraw(boolean draw) {
-        this.draw = draw;
-    }
-
-    public void resetDraw() {
-        this.draw = false;
     }
 
 }

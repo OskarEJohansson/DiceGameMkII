@@ -38,12 +38,5 @@ public class GameResultsTest extends TestCase {
 
 
     }
-    @Test
-    public void testFindDraw() {
-
-        gameResults.findDraw(game, resetParameters);
-        assertEquals(true, game.isDraw());
-
-    }
 
 }

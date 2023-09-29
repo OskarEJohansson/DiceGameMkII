@@ -2,6 +2,7 @@ package com.OskarJohansson.DiceGameMkII.Control;
 
 import com.OskarJohansson.DiceGameMkII.Control.GameControl.*;
 import com.OskarJohansson.DiceGameMkII.Model.Dice;
+import com.OskarJohansson.DiceGameMkII.Model.Draw;
 import com.OskarJohansson.DiceGameMkII.Model.Game;
 import com.OskarJohansson.DiceGameMkII.Model.Player;
 
@@ -20,7 +21,7 @@ public class GameFlow {
     Scanner scanner;
     UserInput userInput;
     boolean isAppRunning;
-    int isDraw;
+    Draw draw;
 
     SetGameParameters setGameParameters;
     CreatePlayer createPlayer;
@@ -37,7 +38,7 @@ public class GameFlow {
         this.scanner = new Scanner(System.in);
         this.userInput = new UserInput();
         this.isAppRunning = true;
-        this.isDraw = 0;
+        this.draw = new Draw();
 
         this.setGameParameters = new SetGameParameters();
         this.createPlayer = new CreatePlayer();
@@ -47,33 +48,6 @@ public class GameFlow {
 
     }
 
-    //    public void runApp(){
-//
-//
-//        player.setName("Oskar");
-//        player.setDraw(true);
-//        player.setDrawScore(1);
-//        ArrayList<Player> playerList = new ArrayList<>();
-//        playerList.add(player);
-//
-//        Player player = new Player();
-//        player.setName("Max");
-//        player.setDraw(true);
-//        player.setDrawScore(1);
-//        playerList.add(player);
-//
-//        game.setPlayerList(playerList);
-//
-//        gameResults.findDraw(game);
-//
-//        while (game.isDraw()) {
-//            playRound.playRound(game, dice, texts, scanner);
-//            gameResults.showDrawResults(game, texts);
-//
-//        }
-//
-//    }
-//}
     public void runApp() {
 
         texts.welcomeMessage();
@@ -95,41 +69,63 @@ public class GameFlow {
         while (isAppRunning) {
 
             game.resetCounter(1);
+//
+
+//            draw.resetDrawPlayerList();
+//
+//            resetParameters.resetDrawScoreInAllObjects(draw);
+//            resetParameters.resetDrawScoreInAllObjects(draw);
 
             for (int i = 0; i < game.getNumberOfRounds(); i++) {
 
+                // Reset all the parameters for next round
+
+                draw.resetDrawPlayerList();
                 resetParameters.resetScoreInAllObjects(game);
-                resetParameters.resetDrawInAllObjectsInAllObjects(game);
-                resetParameters.resetDrawInAllObjectsInAllObjects(game);
-
                 texts.getReadyForRound(game.getCounter());
-                playRound.playRound(game, dice, texts, resetParameters, scanner);
+                playRound.playRound(game, dice, texts, draw, scanner);
 
+                texts.showResult();
                 gameResults.showResults(game, texts);
 
-                gameResults.findWinner(game, resetParameters);
-                gameResults.findDraw(game, resetParameters);
+                gameResults.findWinner(game);
+                gameResults.findDraw(game, draw);
 
-                while (game.isDraw()) {
+                while (draw.getDraw() == 1) {
+
+                    // WORKING FIRST ROUND
                     texts.welcomeToDraw();
-                    this.isDraw = playRound.playRound(game, dice, texts, resetParameters, scanner);
-                    gameResults.findWinner(game, resetParameters);
-                    gameResults.findDraw(game, resetParameters);
+                    playRound.playDrawRound(dice, texts, draw, scanner);
+                    gameResults.findWinnerInDraw(draw);
+                    gameResults.findDrawInDraw(game, draw);
+
+//                    // WORKING FIRST ROUND
+//                    if (draw.getShowDrawWinner() == 2){
+//                        System.out.println("Again!");
+//                        draw.setShowDrawWinner(0); // 0 == Make sure we go back to show regular winner.
+//                    }
                 }
 
-                if (this.isDraw == 1) {
-                    texts.showDrawResult(game.getDrawWinnerObject());
-                    this.isDraw = 0;
+                // 1 == show dra winner.
+                if(draw.getShowDrawWinner() == 1) {
+                    texts.showDrawResult();
+                    gameResults.showDrawResultsPlayer(draw, texts);
+                    texts.theDrawWinnerIs(draw.getDrawWinnerObject());
+                    draw.setShowDrawWinner(0);
+                    game.resetWinnerObject();
+                    draw.resetDrawWinnerObject();
 
-                } else {
+                }else {
                     texts.theWinnerIs(game.getWinnerObject());
                     game.getWinnerObject().setRoundWin();
                 }
 
+                game.addToCounter();
+                game.resetWinnerObject();
+                game.resetWinnerScore();
             }
         }
         texts.playAnotherRound();
-        playRound.playAnotherRound(scanner);
     }
 }
 
