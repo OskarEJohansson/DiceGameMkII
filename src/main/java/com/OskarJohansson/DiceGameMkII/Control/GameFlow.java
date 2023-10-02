@@ -73,9 +73,6 @@ public class GameFlow {
             for (int i = 0; i < game.getNumberOfRounds(); i++) {
 
                 // Reset all the parameters for next round
-                draw.resetDrawPlayerList();
-                resetParameters.resetScoreInAllObjects(game);
-                resetParameters.resetDrawScoreInAllObjects(game);
                 texts.getReadyForRound(game.getCounter());
                 playRound.playRound(game, dice, texts, draw, scanner);
 
@@ -97,10 +94,10 @@ public class GameFlow {
                 if (draw.getShowDrawWinner() == 1) {
                     texts.theDrawWinnerIs(draw.getDrawWinnerObject());
                     draw.setShowDrawWinner(0);
-                    game.resetWinnerObject();
-                    draw.resetDrawWinnerObject();
 
 
+
+                    // Shows the normal round winner if "draw.getShowDrawWinner == 0)
                 } else {
                     texts.theWinnerIs(game.getWinnerObject());
                     game.getWinnerObject().setRoundWin();
@@ -109,6 +106,11 @@ public class GameFlow {
                 game.addToCounter();
                 game.resetWinnerObject();
                 game.resetWinnerScore();
+                draw.resetDrawWinnerObject();
+                draw.resetDrawPlayerList();
+                resetParameters.resetScoreInAllObjects(game);
+                resetParameters.resetDrawScoreInAllObjects(game);
+
             }
             texts.playAnotherRound();
             isAppRunning = setGameParameters.playAnotherRound(scanner, isAppRunning);

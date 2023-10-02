@@ -16,15 +16,9 @@ public class ResetParameters {
         game.getPlayerList().forEach(Player::resetDrawScore) ;
     }
 
-    public void reserWinnerObjectInGame(Game game){
-        game.resetWinnerObject();
-
-    }
-
     public void resetDrawWinnerScoreInAllObjects(Game game) {
         game.getPlayerList().forEach(Player:: resetDrawScore);
     }
-
 
     public void resetRoundWin(Game game) {game.getPlayerList().forEach(Player::resetRoundWin);
     }

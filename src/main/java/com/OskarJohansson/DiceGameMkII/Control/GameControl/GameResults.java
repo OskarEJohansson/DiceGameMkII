@@ -40,6 +40,7 @@ public class GameResults {
 
         if (!uniquePlayersToDraw.isEmpty()) {
             draw.setDraw(1);
+            draw.setShowDrawWinner(1);
             ArrayList<Player> uniqueDrawPlayerList = new ArrayList<>(uniquePlayersToDraw);
             draw.addToDrawPlayerList(uniqueDrawPlayerList);
         }
@@ -60,7 +61,8 @@ public class GameResults {
 
     public void findWinnerInDraw(Draw draw) {
 
-        draw.resetDrawWinnerObject();
+        //Reset draw winner score
+        draw.setDrawWinnerScore(0);
 
         draw.getDrawPlayerList().forEach(player -> {
 
@@ -82,6 +84,7 @@ public class GameResults {
 
         if (!uniquePlayersToDraw.isEmpty()) {
             draw.setDraw(1);
+            draw.setShowDrawWinner(1);
             // Creating a new unique ArrayList that Object Draw can recieve.
             ArrayList<Player> uniqueDrawPlayerList = new ArrayList<>(uniquePlayersToDraw);
             draw.addToDrawPlayerList(uniqueDrawPlayerList);
