@@ -7,28 +7,28 @@ import com.OskarJohansson.DiceGameMkII.Model.Player;
 public class GameTexts {
 
     public void welcomeMessage() {
-
-        System.out.println("""
+        String welcomeMessage = """
                                     
-                WELCOME TO THE DICE GAME!
-                                    
-                         RULES
+    WELCOME TO THE DICE GAME!
+                                
+           RULES
+                    
+    1. Set number of players to compete!
+    2. Set number of dice to roll!
+    3. Set number of rounds to play!
+                                
+      MAY THE BEST ROLLER WIN!
                         
-                1. Set number of players to compete!
-                2. Set number of dice to roll!
-                3. Set number of rounds to play!
-                                    
-                  MAY THE BEST ROLLER WIN!
-                        
-                """);
+    """;
+        System.out.println(welcomeMessage);
     }
 
     public void getReadyForRound(int roundCounter) {
         System.out.printf("""
-                Get ready for round
-                    >>> %d <<<
+    Get ready for round
+        >>> %d <<<
                                           
-                """, roundCounter);
+    """, roundCounter);
     }
 
     public void letsStartTheGame() {
@@ -36,86 +36,76 @@ public class GameTexts {
     }
 
     public void numberOfPlayers() {
-        System.out.println("Set number of players: ");
+        System.out.print("Set number of players: ");
     }
 
     public void enterPlayerName(int numberOfPlayers) {
-        System.out.println("Enter name of player " + numberOfPlayers);
+        System.out.print("Enter name of player " + numberOfPlayers + ": ");
     }
 
     public void numberOfDice() {
-        System.out.println("Set number of dies to throw: ");
+        System.out.print("Set number of dice to throw: ");
     }
 
     public void numberOfRounds() {
-        System.out.println("Set number of rounds to play: ");
+        System.out.print("Set number of rounds to play: ");
     }
 
     public void diceLoop(Player player, Dice dice) {
-        System.out.println(player.getName() + " rolls >>> " + player.getDiceRoll() + " <<< with dice >>> " + dice.getDiceCounter() + " <<<");
+        System.out.printf("%s rolls >>> %d <<< with dice >>> %d <<<\n", player.getName(), player.getDiceRoll(), dice.getDiceCounter());
     }
 
     public void diceLoopDraw(Player player) {
-        System.out.println(player.getName() + " rolls >>> " + player.getDrawScore());
+        System.out.printf("%s rolls >>> %d <<<\n", player.getName(), player.getDrawScore());
     }
 
     public void showResult() {
-        System.out.printf("""         
-                The results from this round is:  
-                """);
+        System.out.println("The results from this round are:");
     }
-    public void showResultPlayer(Player player) {
-        System.out.printf("""
-                >>> %s <<< 
-                >>> %d <<< 
-                """, player.getName(), player.getScore());
 
+    public void showResultPlayer(Player player) {
+        System.out.printf(">>> %s <<<\n>>> %d <<<\n", player.getName(), player.getScore());
     }
 
     public void showDrawResult() {
-        System.out.printf(""" 
-                The draw results is: 
-                """);
+        System.out.println("The draw results are:");
     }
 
     public void showDrawResultPlayers(Player player) {
-        System.out.printf("""
-                >>> %s <<< 
-                >>> %d <<< 
-                """, player.getName(), player.getDrawScore());
+        System.out.printf(">>> %s <<<\n>>> %d <<<\n", player.getName(), player.getDrawScore());
     }
 
     public void theWinnerIs(Player player) {
         System.out.printf("""
-                THE WINNER IS
-                >>> %s <<<
-                                
-                with a total of
-                >>> %d <<<       
-                """, player.getName(), player.getScore());
+    THE WINNER IS
+    >>> %s <<<
+                            
+    with a total of
+    >>> %d <<<       
+    """, player.getName(), player.getScore());
     }
 
     public void theDrawWinnerIs(Player player) {
         System.out.printf("""
-                
-                THE DRAW WINNER IS
-                    >>> %s <<<
-                      with
-                    >>> %d <<<
-                """, player.getName(), player.getDrawScore());
+        
+    THE DRAW WINNER IS
+        >>> %s <<<
+          with
+        >>> %d <<<
+    """, player.getName(), player.getDrawScore());
     }
 
     public void welcomeToDraw() {
-        System.out.println("\nWE HAVE A DRAW \n");
+        System.out.println("\nWE HAVE A DRAW\n");
     }
 
     public void playAnotherRound() {
-        System.out.println("""
-                Play another round?
-                                 
-                >>> Y/N <<<
-                Y to Continue
-                N to exit the application.       
-                """);
+        System.out.print("""
+    Play another round?
+                             
+    >>> Y/N <<<
+    Y to Continue
+    N to exit the application.       
+    """);
     }
 }

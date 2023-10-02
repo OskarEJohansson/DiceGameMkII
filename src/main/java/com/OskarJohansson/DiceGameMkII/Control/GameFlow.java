@@ -96,7 +96,6 @@ public class GameFlow {
                     draw.setShowDrawWinner(0);
 
 
-
                     // Shows the normal round winner if "draw.getShowDrawWinner == 0)
                 } else {
                     texts.theWinnerIs(game.getWinnerObject());
