@@ -1,15 +1,11 @@
 package com.OskarJohansson.DiceGameMkII.Control;
 
-import com.OskarJohansson.DiceGameMkII.Control.GameControl.*;
 import com.OskarJohansson.DiceGameMkII.Model.Dice;
 import com.OskarJohansson.DiceGameMkII.Model.Draw;
 import com.OskarJohansson.DiceGameMkII.Model.Game;
 import com.OskarJohansson.DiceGameMkII.Model.Player;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.concurrent.TimeoutException;
 
 public class GameFlow {
 
