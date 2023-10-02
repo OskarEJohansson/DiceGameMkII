@@ -1,33 +1,51 @@
 package com.OskarJohansson.DiceGameMkII.Control;
 
+import com.OskarJohansson.DiceGameMkII.Control.GameControl.*;
 import com.OskarJohansson.DiceGameMkII.Model.Dice;
+import com.OskarJohansson.DiceGameMkII.Model.Draw;
+import com.OskarJohansson.DiceGameMkII.Model.Game;
 import com.OskarJohansson.DiceGameMkII.Model.Player;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 public class GameFlow {
 
-    GameControl gameControl;
+
     GameTexts texts;
+    Game game;
+    Player player;
     Dice dice;
     Scanner scanner;
-    ArrayList<Player> playerList;
-    Player player;
     UserInput userInput;
     boolean isAppRunning;
+    Draw draw;
 
+    SetGameParameters setGameParameters;
+    CreatePlayer createPlayer;
+    PlayRound playRound;
+    GameResults gameResults;
+    ResetParameters resetParameters;
 
     public GameFlow() {
 
-        this.gameControl = new GameControl();
         this.texts = new GameTexts();
+        this.game = new Game();
+        this.player = new Player();
         this.dice = new Dice();
         this.scanner = new Scanner(System.in);
-        this.playerList = new ArrayList<>();
-        this.player = new Player();
         this.userInput = new UserInput();
         this.isAppRunning = true;
+        this.draw = new Draw();
+
+        this.setGameParameters = new SetGameParameters();
+        this.createPlayer = new CreatePlayer();
+        this.playRound = new PlayRound();
+        this.gameResults = new GameResults();
+        this.resetParameters = new ResetParameters();
+
     }
 
     public void runApp() {
@@ -35,51 +53,67 @@ public class GameFlow {
         texts.welcomeMessage();
 
         texts.numberOfPlayers();
-        gameControl.setNumberOfPlayers(scanner, userInput);
 
-        this.playerList = gameControl.namePlayers(playerList, scanner, texts);
+        setGameParameters.setNumberOfPlayers(game, userInput, scanner);
+
+        createPlayer.namePlayers(game, texts, scanner);
 
         texts.numberOfDice();
-        gameControl.setNumberOfDies(dice, userInput, scanner);
+        setGameParameters.setNumberOfDies(dice, userInput, scanner);
 
         texts.numberOfRounds();
-        gameControl.setNumberOfRounds(userInput, scanner);
+        setGameParameters.setNumberOfRounds(game, userInput, scanner);
 
         texts.letsStartTheGame();
 
-        // OBS i = 1 and <= in forloop!
         while (isAppRunning) {
-            for (int i = 1; i <= gameControl.numberOfRounds; i++) {
 
-                gameControl.resetAll(playerList);
+            game.resetCounter(1);
 
-                texts.getReadyForRound(i);
-                gameControl.playRound(playerList, player, dice, scanner);
+            for (int i = 0; i < game.getNumberOfRounds(); i++) {
+
+                // Reset all the parameters for next round
+                texts.getReadyForRound(game.getCounter());
+                playRound.playRound(game, dice, texts, draw, scanner);
 
                 texts.showResult();
-                gameControl.showResults(playerList);
+                gameResults.showResults(game, texts);
 
-                gameControl.findWinner(playerList);
-                gameControl.findDraw(playerList);
+                gameResults.findWinner(game);
+                gameResults.findDraw(game, draw);
 
-                while (gameControl.isDraw) {
+                while (draw.getDraw() == 1) {
+
                     texts.welcomeToDraw();
-                    gameControl.playDrawRound(dice, playerList, scanner);
-                    gameControl.resetDrawInAllObjectsInAllObjects(playerList);
+                    playRound.playDrawRound(dice, texts, draw, scanner);
+                    gameResults.findWinnerInDraw(draw);
+                    gameResults.findDrawInDraw(game, draw);
+
                 }
+                // 1 == show dra winner.
+                if (draw.getShowDrawWinner() == 1) {
+                    texts.theDrawWinnerIs(draw.getDrawWinnerObject());
+                    draw.setShowDrawWinner(0);
 
-                if (gameControl.isDraw) {
-                    texts.theWinnerIs(gameControl.drawWinnerObject.getName(), gameControl.drawWinnerObject.getDrawScore());
-                    gameControl.drawWinnerObject.setRoundWin();
 
+                    // Shows the normal round winner if "draw.getShowDrawWinner == 0)
                 } else {
-
-                    texts.theWinnerIs(gameControl.winnerObject.getName(), gameControl.winnerObject.getScore());
-                    gameControl.winnerObject.setRoundWin();
+                    texts.theWinnerIs(game.getWinnerObject());
+                    game.getWinnerObject().setRoundWin();
                 }
+
+                game.addToCounter();
+                game.resetWinnerObject();
+                game.resetWinnerScore();
+                draw.resetDrawWinnerObject();
+                draw.resetDrawPlayerList();
+                resetParameters.resetScoreInAllObjects(game);
+                resetParameters.resetDrawScoreInAllObjects(game);
+
             }
             texts.playAnotherRound();
-            gameControl.playAnotherRound(scanner);
+            isAppRunning = setGameParameters.playAnotherRound(scanner, isAppRunning);
         }
     }
 }
+
