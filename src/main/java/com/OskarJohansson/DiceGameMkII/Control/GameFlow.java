@@ -1,5 +1,6 @@
 package com.OskarJohansson.DiceGameMkII.Control;
 
+import com.OskarJohansson.DiceGameMkII.Control.GameControl.*;
 import com.OskarJohansson.DiceGameMkII.Model.Dice;
 import com.OskarJohansson.DiceGameMkII.Model.Draw;
 import com.OskarJohansson.DiceGameMkII.Model.Game;
