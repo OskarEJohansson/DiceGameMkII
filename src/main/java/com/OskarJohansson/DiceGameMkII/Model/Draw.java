@@ -34,8 +34,8 @@ public class Draw {
         this.drawPlayerList = new ArrayList<>();
     }
 
-    public void addToDrawPlayerList(Player drawPlayer) {
-        this.drawPlayerList.add(drawPlayer);
+    public void addToDrawPlayerList(ArrayList uniquePlayersToDraw) {
+        this.drawPlayerList = uniquePlayersToDraw;
     }
 
     public int getDrawWinnerScore() {

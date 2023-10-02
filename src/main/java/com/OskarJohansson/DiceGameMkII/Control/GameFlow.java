@@ -69,19 +69,13 @@ public class GameFlow {
         while (isAppRunning) {
 
             game.resetCounter(1);
-//
-
-//            draw.resetDrawPlayerList();
-//
-//            resetParameters.resetDrawScoreInAllObjects(draw);
-//            resetParameters.resetDrawScoreInAllObjects(draw);
 
             for (int i = 0; i < game.getNumberOfRounds(); i++) {
 
                 // Reset all the parameters for next round
-
                 draw.resetDrawPlayerList();
                 resetParameters.resetScoreInAllObjects(game);
+                resetParameters.resetDrawScoreInAllObjects(game);
                 texts.getReadyForRound(game.getCounter());
                 playRound.playRound(game, dice, texts, draw, scanner);
 
@@ -93,29 +87,21 @@ public class GameFlow {
 
                 while (draw.getDraw() == 1) {
 
-                    // WORKING FIRST ROUND
                     texts.welcomeToDraw();
                     playRound.playDrawRound(dice, texts, draw, scanner);
                     gameResults.findWinnerInDraw(draw);
                     gameResults.findDrawInDraw(game, draw);
 
-//                    // WORKING FIRST ROUND
-//                    if (draw.getShowDrawWinner() == 2){
-//                        System.out.println("Again!");
-//                        draw.setShowDrawWinner(0); // 0 == Make sure we go back to show regular winner.
-//                    }
                 }
-
                 // 1 == show dra winner.
-                if(draw.getShowDrawWinner() == 1) {
-                    texts.showDrawResult();
-                    gameResults.showDrawResultsPlayer(draw, texts);
+                if (draw.getShowDrawWinner() == 1) {
                     texts.theDrawWinnerIs(draw.getDrawWinnerObject());
                     draw.setShowDrawWinner(0);
                     game.resetWinnerObject();
                     draw.resetDrawWinnerObject();
 
-                }else {
+
+                } else {
                     texts.theWinnerIs(game.getWinnerObject());
                     game.getWinnerObject().setRoundWin();
                 }
@@ -124,8 +110,9 @@ public class GameFlow {
                 game.resetWinnerObject();
                 game.resetWinnerScore();
             }
+            texts.playAnotherRound();
+            isAppRunning = setGameParameters.playAnotherRound(scanner, isAppRunning);
         }
-        texts.playAnotherRound();
     }
 }
 

@@ -13,17 +13,15 @@ import java.util.stream.Stream;
 
 public class PlayRound {
 
-    boolean appIsRunning = true;
-
     public void playRound(Game game, Dice dice, GameTexts texts, Draw draw, Scanner scanner) {
         game.getPlayerList().forEach(player ->
-                diceLoop(game, player, dice, texts, scanner));
+                diceLoop(player, dice, texts, scanner));
 
         System.out.println("Press 'Enter' to continue");
         scanner.nextLine();
     }
 
-    public void diceLoop(Game game, Player player, Dice dice, GameTexts texts, Scanner scanner) {
+    public void diceLoop(Player player, Dice dice, GameTexts texts, Scanner scanner) {
 
         dice.resetDiceCounter();
 
@@ -51,9 +49,4 @@ public class PlayRound {
         texts.diceLoopDraw(player);
 
     }
-
-    public void playAnotherRound(Scanner scanner) {
-        this.appIsRunning = scanner.nextLine().equalsIgnoreCase("y");
-    }
-
 }

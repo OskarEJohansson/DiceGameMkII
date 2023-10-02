@@ -100,7 +100,7 @@ public class GameTexts {
                 
                 THE DRAW WINNER IS
                     >>> %s <<<
-                  with a total of
+                      with
                     >>> %d <<<
                 """, player.getName(), player.getDrawScore());
     }

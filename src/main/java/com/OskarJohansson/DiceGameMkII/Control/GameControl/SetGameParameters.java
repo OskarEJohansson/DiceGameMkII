@@ -41,4 +41,11 @@ public class SetGameParameters {
 
         game.setNumberOfRounds(this.inputReturn);
     }
+
+    public boolean playAnotherRound(Scanner scanner, Boolean appIsRunning) {
+        if (scanner.nextLine().equalsIgnoreCase("y")) {
+            return appIsRunning = true;
+        }else return false;
+    }
+
 }

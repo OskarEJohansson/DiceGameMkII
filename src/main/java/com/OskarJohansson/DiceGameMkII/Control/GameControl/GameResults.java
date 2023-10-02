@@ -5,6 +5,11 @@ import com.OskarJohansson.DiceGameMkII.Model.Draw;
 import com.OskarJohansson.DiceGameMkII.Model.Game;
 import com.OskarJohansson.DiceGameMkII.Model.Player;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class GameResults {
 
     public void showResults(Game game, GameTexts texts) {
@@ -14,6 +19,7 @@ public class GameResults {
     public void showDrawResultsPlayer(Draw draw, GameTexts texts) {
         draw.getDrawPlayerList().forEach(texts::showDrawResultPlayers);
     }
+
     public void findWinner(Game game) {
 
         game.getPlayerList().forEach(player -> {
@@ -27,14 +33,29 @@ public class GameResults {
 
     public void findDraw(Game game, Draw draw) {
 
+        // Hashset to make sure only unique obejcts are saved to the draw player list
+        Set<Player> uniquePlayersToDraw = new HashSet<>();
+
+        uniquePlayersToDraw = finduniquePlayersToDraw(game, draw, uniquePlayersToDraw);
+
+        if (!uniquePlayersToDraw.isEmpty()) {
+            draw.setDraw(1);
+            ArrayList<Player> uniqueDrawPlayerList = new ArrayList<>(uniquePlayersToDraw);
+            draw.addToDrawPlayerList(uniqueDrawPlayerList);
+        }
+    }
+
+    public Set<Player> finduniquePlayersToDraw(Game game, Draw draw, Set<Player> uniquePlayersToDraw) {
+
         game.getPlayerList().forEach(player -> {
 
             if (game.getWinnerScore() == player.getScore() && game.getWinnerObject().getName() != player.getName()) {
                 draw.setDraw(1);
-                draw.addToDrawPlayerList(game.getWinnerObject());
-                draw.addToDrawPlayerList(player);
+                uniquePlayersToDraw.add(game.getWinnerObject());
+                uniquePlayersToDraw.add(player);
             }
         });
+        return uniquePlayersToDraw;
     }
 
     public void findWinnerInDraw(Draw draw) {
@@ -53,20 +74,39 @@ public class GameResults {
     }
 
     public void findDrawInDraw(Game game, Draw draw) {
+        Set<Player> uniquePlayersToDraw = new HashSet<>();
 
         draw.setDraw(0);
 
-        game.getPlayerList().forEach(player -> {
+        uniquePlayersToDraw = findUniquePlayersFromDrawToDraw(game, draw, uniquePlayersToDraw);
 
+        if (!uniquePlayersToDraw.isEmpty()) {
+            draw.setDraw(1);
+            // Creating a new unique ArrayList that Object Draw can recieve.
+            ArrayList<Player> uniqueDrawPlayerList = new ArrayList<>(uniquePlayersToDraw);
+            draw.addToDrawPlayerList(uniqueDrawPlayerList);
+
+        } else {
+            draw.setDraw(0);
             draw.resetDrawPlayerList();
+        }
+    }
+
+    public Set<Player> findUniquePlayersFromDrawToDraw(Game game, Draw draw, Set<Player> uniquePlayersToDraw) {
+        // Hashset to make sure only unique obejcts are saved to the draw player list
+
+        game.getPlayerList().forEach(player -> {
 
             if (draw.getDrawWinnerScore() == player.getDrawScore() && draw.getDrawWinnerObject().getName() != player.getName()) {
                 draw.setDraw(1);
-                draw.addToDrawPlayerList(draw.getDrawWinnerObject());
-                draw.addToDrawPlayerList(player);
+                uniquePlayersToDraw.add(game.getWinnerObject());
+                uniquePlayersToDraw.add(player);
                 draw.setShowDrawWinner(2); // 2 == Shows that we have another draw.
-            } else {draw.setDraw(0);
-            draw.resetDrawPlayerList();}
+            }
+
         });
+
+        return uniquePlayersToDraw;
+
     }
 }

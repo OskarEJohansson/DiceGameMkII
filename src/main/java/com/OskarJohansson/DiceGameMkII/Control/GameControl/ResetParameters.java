@@ -12,8 +12,8 @@ public class ResetParameters {
     public void resetScoreInAllObjects(Game game) {
         game.getPlayerList().forEach(Player::resetScore) ;
     }
-    public void resetDrawScoreInAllObjects(Draw draw) {
-        draw.getDrawPlayerList().forEach(Player::resetDrawScore) ;
+    public void resetDrawScoreInAllObjects(Game game) {
+        game.getPlayerList().forEach(Player::resetDrawScore) ;
     }
 
     public void reserWinnerObjectInGame(Game game){
