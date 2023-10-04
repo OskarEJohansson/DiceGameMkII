@@ -1,6 +1,6 @@
 package com.OskarJohansson.DiceGameMkII;
 
-import com.OskarJohansson.DiceGameMkII.Control.GameFlow;
+import com.OskarJohansson.DiceGameMkII.Control.GameControl.GameFlow;
 
 
 public class Main {

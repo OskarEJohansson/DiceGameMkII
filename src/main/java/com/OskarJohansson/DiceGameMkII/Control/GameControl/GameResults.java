@@ -36,7 +36,7 @@ public class GameResults {
         // Hashset to make sure only unique obejcts are saved to the draw player list
         Set<Player> uniquePlayersToDraw = new HashSet<>();
 
-        uniquePlayersToDraw = finduniquePlayersToDraw(game, draw, uniquePlayersToDraw);
+        uniquePlayersToDraw = findUniquePlayersToDraw(game, draw, uniquePlayersToDraw);
 
         if (!uniquePlayersToDraw.isEmpty()) {
             draw.setDraw(1);
@@ -46,7 +46,7 @@ public class GameResults {
         }
     }
 
-    public Set<Player> finduniquePlayersToDraw(Game game, Draw draw, Set<Player> uniquePlayersToDraw) {
+    public Set<Player> findUniquePlayersToDraw(Game game, Draw draw, Set<Player> uniquePlayersToDraw) {
 
         game.getPlayerList().forEach(player -> {
 

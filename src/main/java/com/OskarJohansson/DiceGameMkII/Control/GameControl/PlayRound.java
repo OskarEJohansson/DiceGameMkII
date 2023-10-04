@@ -15,13 +15,13 @@ public class PlayRound {
 
     public void playRound(Game game, Dice dice, GameTexts texts, Draw draw, Scanner scanner) {
         game.getPlayerList().forEach(player ->
-                diceLoop(player, dice, texts, scanner));
+                diceLoop(player, dice, texts));
 
         System.out.println("Press 'Enter' to continue");
         scanner.nextLine();
     }
 
-    public void diceLoop(Player player, Dice dice, GameTexts texts, Scanner scanner) {
+    public void diceLoop(Player player, Dice dice, GameTexts texts) {
 
         dice.resetDiceCounter();
 
@@ -36,14 +36,14 @@ public class PlayRound {
     public void playDrawRound(Dice dice, GameTexts texts, Draw draw, Scanner scanner) {
         draw.getDrawPlayerList().forEach(player -> {
             dice.resetDiceCounter();
-            diceLoopDraw(player, dice, texts, scanner);
+            diceLoopDraw(player, dice, texts);
 
             System.out.println("Press 'Enter' to continue");
             scanner.nextLine();
         });
     }
 
-    public void diceLoopDraw(Player player, Dice dice, GameTexts texts, Scanner scanner) {
+    public void diceLoopDraw(Player player, Dice dice, GameTexts texts) {
         dice.resetDiceCounter();
         player.setDrawScore(dice.throwDice());
         texts.diceLoopDraw(player);

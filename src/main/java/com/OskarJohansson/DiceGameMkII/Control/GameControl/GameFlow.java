@@ -1,6 +1,8 @@
-package com.OskarJohansson.DiceGameMkII.Control;
+package com.OskarJohansson.DiceGameMkII.Control.GameControl;
 
 import com.OskarJohansson.DiceGameMkII.Control.GameControl.*;
+import com.OskarJohansson.DiceGameMkII.Control.GameTexts;
+import com.OskarJohansson.DiceGameMkII.Control.UserInput;
 import com.OskarJohansson.DiceGameMkII.Model.Dice;
 import com.OskarJohansson.DiceGameMkII.Model.Draw;
 import com.OskarJohansson.DiceGameMkII.Model.Game;
@@ -80,18 +82,16 @@ public class GameFlow {
                 gameResults.findDraw(game, draw);
 
                 while (draw.getDraw() == 1) {
-
                     texts.welcomeToDraw();
                     playRound.playDrawRound(dice, texts, draw, scanner);
                     gameResults.findWinnerInDraw(draw);
                     gameResults.findDrawInDraw(game, draw);
-
                 }
+
                 // 1 == show dra winner.
                 if (draw.getShowDrawWinner() == 1) {
                     texts.theDrawWinnerIs(draw.getDrawWinnerObject());
                     draw.setShowDrawWinner(0);
-
 
                     // Shows the normal round winner if "draw.getShowDrawWinner == 0)
                 } else {
