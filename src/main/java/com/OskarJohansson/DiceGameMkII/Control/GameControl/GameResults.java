@@ -44,6 +44,7 @@ public class GameResults {
             ArrayList<Player> uniqueDrawPlayerList = new ArrayList<>(uniquePlayersToDraw);
             draw.addToDrawPlayerList(uniqueDrawPlayerList);
         }
+
     }
 
     public Set<Player> findUniquePlayersToDraw(Game game, Draw draw, Set<Player> uniquePlayersToDraw) {

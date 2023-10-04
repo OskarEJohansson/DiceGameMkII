@@ -47,6 +47,10 @@ public class GameTexts {
         System.out.print("Set number of dice to throw: ");
     }
 
+    public void numberOfDieSides() {
+        System.out.print("Set number of sides for the dies: ");
+    }
+
     public void numberOfRounds() {
         System.out.print("Set number of rounds to play: ");
     }

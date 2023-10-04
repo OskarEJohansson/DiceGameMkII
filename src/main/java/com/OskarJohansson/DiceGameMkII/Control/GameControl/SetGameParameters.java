@@ -31,6 +31,17 @@ public class SetGameParameters {
         dice.setNumberOfDice(this.inputReturn);
     }
 
+    public void setNumberDieSides(Dice dice, UserInput userInput, Scanner scanner){
+        int maxNumber = 20;
+        String noun = "sides";
+
+        do this.inputReturn = userInput.maxNumberOfInput(userInput.inputInt(scanner), noun, maxNumber);
+
+        while (this.inputReturn == -1);
+
+        dice.setNumberOfSides(this.inputReturn);
+    }
+
     public void setNumberOfRounds(Game game, @NotNull UserInput userInput, Scanner scanner) {
         String noun = "rounds";
         int maxNumber = 10;

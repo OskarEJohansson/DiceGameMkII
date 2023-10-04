@@ -60,6 +60,9 @@ public class GameFlow {
         texts.numberOfDice();
         setGameParameters.setNumberOfDies(dice, userInput, scanner);
 
+        texts.numberOfDieSides();
+        setGameParameters.setNumberDieSides(dice, userInput, scanner);
+
         texts.numberOfRounds();
         setGameParameters.setNumberOfRounds(game, userInput, scanner);
 

@@ -10,6 +10,7 @@ public class Dice {
     //Number of dies to throw
     int numberOfDice = 1;
     int diceCounter = 1;
+    int numberOfSides = 6;
     Random randomizer = new Random();
 
 
@@ -34,6 +35,13 @@ public class Dice {
     }
 
     public int throwDice(){
-        return randomizer.nextInt(1, 7);
+        return randomizer.nextInt(1, numberOfSides + 1);
+    }
+
+    public int getNumberOfSides() {
+        return numberOfSides;
+    }
+    public void setNumberOfSides(int numberOfSides) {
+        this.numberOfSides = numberOfSides;
     }
 }
