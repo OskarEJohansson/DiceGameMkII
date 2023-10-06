@@ -38,9 +38,6 @@ public class Dice {
         return randomizer.nextInt(1, numberOfSides + 1);
     }
 
-    public int getNumberOfSides() {
-        return numberOfSides;
-    }
     public void setNumberOfSides(int numberOfSides) {
         this.numberOfSides = numberOfSides;
     }
